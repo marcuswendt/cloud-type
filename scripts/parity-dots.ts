@@ -54,6 +54,8 @@ for (const [id, value] of Object.entries(preset.values)) {
   if (!p) throw new Error(`unknown parameter ${id}`);
   await graph.setProp(p.node, p.prop, value);
 }
+// BLOW=0 compares the letters alone, before any dots are blown off them.
+if (process.env.BLOW !== undefined) await graph.setProp(params.get('blowAmount')!.node, params.get('blowAmount')!.prop, Number(process.env.BLOW));
 if (fontPath) await graph.setProp('type-set', 'font', { path: path.resolve(fontPath), mediaType: 'font/otf' });
 
 const t0 = performance.now();
