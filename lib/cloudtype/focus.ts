@@ -6,11 +6,12 @@
 
 import type { Dot } from './stipple';
 import { Rng } from './rng';
+import { key, vnoise } from './express';
 
 export const POINT = -9.0; // a tone that makes the dot a single pen-down at the pen's width
 
 export interface FocusOptions {
-  field: 'tilt' | 'radial' | 'swept' | 'hunt';
+  field: 'tilt' | 'radial' | 'swept' | 'hunt' | 'bokeh';
   center: [number, number];
   angle: number;
   dof: number;
@@ -31,6 +32,10 @@ export interface FocusOptions {
   ringPitch: number;
   shrink: number;
   ringTone: number;
+  /** The falloff curve's exponent: 1.2 the delivered; below 1 a soft shoulder, above 2 a sharp zone that drops. */
+  falloff?: number;
+  /** `bokeh` field: the noise patch size as a share of the box width. */
+  patch?: number;
 }
 
 function bokehOffsets(rng: Rng, n: number, kernel: string, rim: number, cat: number, toward: Float64Array | null): Float64Array {
@@ -71,6 +76,9 @@ export function focusField(dots: Dot[], comp: Int32Array, order: Float64Array, o
   let phase = 0;
   if (o.field === 'hunt') phase = new Rng(o.seed + 811).uniform(0, 2 * Math.PI);
   const a = (o.angle * Math.PI) / 180;
+  const falloff = o.falloff ?? 1.2;
+  const ps = Math.max(0.05, o.patch ?? 0.35);
+  const kb = o.field === 'bokeh' ? key(o.seed, 41) : 0;
   for (let i = 0; i < n; i++) {
     const u = (dots[i].x - x0) / W;
     const v = ((dots[i].y - y0) / Math.max(1e-6, y1 - y0)) * asp;
@@ -80,8 +88,9 @@ export function focusField(dots: Dot[], comp: Int32Array, order: Float64Array, o
       const pos = order.length ? order[comp[i]] : 0;
       if (o.field === 'swept') d = Math.abs(pos - o.sweep);
       else d = 0.5 * (1 - Math.cos(2 * Math.PI * o.rhythm * pos + phase)) * o.span;
-    } else d = Math.abs(-(u - cu) * Math.sin(a) + (v - cv) * Math.cos(a));
-    f[i] = Math.pow(Math.min(1, Math.max(0, (d - o.dof) / Math.max(1e-6, o.span))), 1.2);
+    } else if (o.field === 'bokeh') d = vnoise(kb, u / ps, v / ps) * (0.6 + 0.8 * Math.hypot(u - cu, v - cv));
+    else d = Math.abs(-(u - cu) * Math.sin(a) + (v - cv) * Math.cos(a));
+    f[i] = Math.pow(Math.min(1, Math.max(0, (d - o.dof) / Math.max(1e-6, o.span))), falloff);
   }
   return f;
 }

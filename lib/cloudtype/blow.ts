@@ -6,6 +6,7 @@
 
 import type { Dot } from './stipple';
 import { Rng } from './rng';
+import { driftExtra } from './express';
 
 export class PointGrid {
   private head: Int32Array;
@@ -90,6 +91,11 @@ export interface BlowOptions {
   distance: number; // max drift in caps (titlepage max_drift)
   seed: number;
   pitchGuess: number;
+  /** typeexpr.drift_extra: a wavy, curling path (wavelength `curl` caps); 0 is the delivered blow. */
+  turbulence?: number;
+  curl?: number;
+  /** + drifts up, - falls, quadratically with distance; 0 is the delivered blow. */
+  gravity?: number;
 }
 
 /** Returns the dots (moved in place, `t` the size factor) and a flag per dot: 1 blown. */
@@ -138,6 +144,17 @@ export function blow(dots: Dot[], o: BlowOptions): { dots: Dot[]; kind: Uint8Arr
       cand = cand.filter((c) => c !== s);
       if (!cand.length) break;
     }
+  }
+  const turbulence = o.turbulence ?? 0, gravity = o.gravity ?? 0;
+  if ((turbulence || gravity) && moved) {
+    const mi: number[] = [];
+    for (let i = 0; i < n; i++) if (kind[i]) mi.push(i);
+    const dd = mi.map((i) => (out[i].x - xs[i]) * w[0] + (out[i].y - ys[i]) * w[1]);
+    const e = driftExtra(dd, maxD, w, o.seed, mi, { turbulence, curl: o.curl ?? 0.6, gravity, capMm: o.capMm });
+    mi.forEach((i, k) => {
+      out[i].x += e[2 * k];
+      out[i].y += e[2 * k + 1];
+    });
   }
   return { dots: out, kind };
 }

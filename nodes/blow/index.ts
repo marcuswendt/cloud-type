@@ -17,7 +17,10 @@ export const definition = {
   props: {
     amount: { type: 'float', default: 0.05, min: 0, max: 0.3, step: 0.005, label: 'Amount', description: 'Share of the dots carried off the downwind edge' },
     angle: { type: 'float', default: 32, min: -180, max: 180, step: 1, label: 'Direction', description: 'degrees: 0 right, 90 up' },
-    distance: { type: 'float', default: 0.5, min: 0, max: 3, step: 0.01, label: 'Distance', description: 'caps' }
+    distance: { type: 'float', default: 0.5, min: 0, max: 3, step: 0.01, label: 'Distance', description: 'caps' },
+    turbulence: { type: 'float', default: 0, min: 0, max: 1, step: 0.01, label: 'Turbulence', description: 'A wavy, curling path whose swing grows along the drift' },
+    curl: { type: 'float', default: 0.6, min: 0.05, max: 3, step: 0.01, label: 'Curl', description: 'Wavelength of the turbulence, caps' },
+    gravity: { type: 'float', default: 0, min: -1, max: 1, step: 0.01, label: 'Gravity', description: '+ drifts up, - falls, growing with distance' }
   },
   outputs: {
     points: { kind: 'data', type: 'geometry', description: 'Dots; blown = 1 for the carried ones' }
@@ -30,7 +33,8 @@ export function execute(context: NodeExecutionContext<typeof definition>) {
   const p = context.props;
   const b = blow(geometryToDots(g), {
     capMm: Number(spec.capMm ?? 13.614), amount: p.amount, angleDeg: p.angle, distance: p.distance,
-    seed: Number(spec.seed ?? 7), pitchGuess: Number(spec.pitchMm ?? 0.4)
+    seed: Number(spec.seed ?? 7), pitchGuess: Number(spec.pitchMm ?? 0.4),
+    turbulence: p.turbulence, curl: p.curl, gravity: p.gravity
   });
   context.outputs.points.set(dotsToGeometry(b.dots, { blown: attr.u8(b.kind) }, detailOf(g)));
 }

@@ -11,6 +11,7 @@
     "description": "Dotted cloud type, after cloud-plots' titletype: a headline or an image to plotter dots, with the book's focus and blown dots.",
     "groups": [
       "Input",
+      "Expression",
       "Focus",
       "Blown dots",
       "Dots",
@@ -294,6 +295,311 @@
         "order": 15
       },
       {
+        "id": "grid",
+        "node": "express",
+        "prop": "grid",
+        "label": "Grid",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Pull each dot onto a hexagonal lattice at the pitch: still, printed. Past 0.5 a lattice node keeps one dot.",
+        "order": 16
+      },
+      {
+        "id": "jitter",
+        "node": "express",
+        "prop": "jitter",
+        "label": "Jitter",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Scatter each dot by up to 0.35 pitch: organic.",
+        "order": 17
+      },
+      {
+        "id": "sizeVar",
+        "node": "express",
+        "prop": "sizeVar",
+        "label": "Size variation",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "A per-dot size spread.",
+        "order": 18
+      },
+      {
+        "id": "weight",
+        "node": "express",
+        "prop": "weight",
+        "label": "Weight",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Heavier letter cores: raises the tone of the dots deep inside a stroke.",
+        "order": 19
+      },
+      {
+        "id": "stack",
+        "node": "express",
+        "prop": "stack",
+        "label": "Stack",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Doubles a share of the core dots, 0.3 pitch apart.",
+        "order": 20
+      },
+      {
+        "id": "erode",
+        "node": "express",
+        "prop": "erode",
+        "label": "Erode",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Dissolve: the share of the dots that goes.",
+        "order": 21
+      },
+      {
+        "id": "erodeMode",
+        "node": "express",
+        "prop": "erodeMode",
+        "label": "Erode from",
+        "group": "Expression",
+        "control": "select",
+        "options": [
+          {
+            "value": "edge",
+            "label": "edge (the whole headline)"
+          },
+          {
+            "value": "strokes",
+            "label": "strokes (each letter)"
+          },
+          {
+            "value": "within",
+            "label": "within (holes)"
+          },
+          {
+            "value": "rim",
+            "label": "rim (outline first)"
+          }
+        ],
+        "visibleWhen": {
+          "param": "erode",
+          "not": [
+            0
+          ]
+        },
+        "order": 22
+      },
+      {
+        "id": "erodeAngle",
+        "node": "express",
+        "prop": "erodeAngle",
+        "label": "Erode angle",
+        "group": "Expression",
+        "control": "slider",
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "unit": "°",
+        "help": "The edge it erodes toward: 0 right, 90 up",
+        "visibleWhen": [
+          {
+            "param": "erode",
+            "not": [
+              0
+            ]
+          },
+          {
+            "param": "erodeMode",
+            "in": [
+              "edge",
+              "strokes"
+            ]
+          }
+        ],
+        "order": 23
+      },
+      {
+        "id": "erodeScale",
+        "node": "express",
+        "prop": "erodeScale",
+        "label": "Erode scale",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0.05,
+        "max": 3,
+        "step": 0.01,
+        "unit": "cap",
+        "help": "Size of the noise that breaks the erosion up",
+        "visibleWhen": {
+          "param": "erode",
+          "not": [
+            0
+          ]
+        },
+        "order": 24
+      },
+      {
+        "id": "release",
+        "node": "express",
+        "prop": "release",
+        "label": "Release",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Share of the eroded dots carried off along the erode direction instead of going",
+        "visibleWhen": {
+          "param": "erode",
+          "not": [
+            0
+          ]
+        },
+        "order": 25
+      },
+      {
+        "id": "releaseDist",
+        "node": "express",
+        "prop": "releaseDist",
+        "label": "Release distance",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 3,
+        "step": 0.01,
+        "unit": "cap",
+        "visibleWhen": [
+          {
+            "param": "erode",
+            "not": [
+              0
+            ]
+          },
+          {
+            "param": "release",
+            "not": [
+              0
+            ]
+          }
+        ],
+        "order": 26
+      },
+      {
+        "id": "letterVar",
+        "node": "express",
+        "prop": "letterVar",
+        "label": "Letter variation",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Each letter its own small rotation (up to 5°), tone (±30%) and nudge.",
+        "order": 27
+      },
+      {
+        "id": "stagger",
+        "node": "express",
+        "prop": "stagger",
+        "label": "Stagger",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "unit": "cap",
+        "help": "Each letter shifted along the stagger angle, so they sit unevenly",
+        "order": 28
+      },
+      {
+        "id": "staggerAngle",
+        "node": "express",
+        "prop": "staggerAngle",
+        "label": "Stagger angle",
+        "group": "Expression",
+        "control": "slider",
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "unit": "°",
+        "help": "0 right, 90 up",
+        "visibleWhen": {
+          "param": "stagger",
+          "not": [
+            0
+          ]
+        },
+        "order": 29
+      },
+      {
+        "id": "smear",
+        "node": "express",
+        "prop": "smear",
+        "label": "Smear",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "Motion: a fading trail of smear × 0.6 × n dots behind the letters, a long exposure.",
+        "order": 30
+      },
+      {
+        "id": "smearAngle",
+        "node": "express",
+        "prop": "smearAngle",
+        "label": "Smear angle",
+        "group": "Expression",
+        "control": "slider",
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "unit": "°",
+        "help": "Direction of motion (the trail is opposite): 0 right, 90 up",
+        "visibleWhen": {
+          "param": "smear",
+          "not": [
+            0
+          ]
+        },
+        "order": 31
+      },
+      {
+        "id": "smearLen",
+        "node": "express",
+        "prop": "smearLen",
+        "label": "Smear length",
+        "group": "Expression",
+        "control": "slider",
+        "min": 0,
+        "max": 3,
+        "step": 0.01,
+        "unit": "cap",
+        "visibleWhen": {
+          "param": "smear",
+          "not": [
+            0
+          ]
+        },
+        "order": 32
+      },
+      {
         "id": "field",
         "node": "focus",
         "prop": "field",
@@ -320,19 +626,23 @@
           {
             "value": "hunt",
             "label": "hunt"
+          },
+          {
+            "value": "bokeh",
+            "label": "bokeh (patches)"
           }
         ],
-        "order": 16
+        "order": 33
       },
       {
         "id": "useStrength",
         "node": "look",
         "prop": "useStrength",
-        "label": "Use strength 1C\u2192soft",
+        "label": "Use strength 1C→soft",
         "group": "Focus",
         "control": "bool",
         "help": "On: defocus, fade, sharp zone, falloff and dot tone follow the strength. Off: set them by hand.",
-        "order": 17,
+        "order": 34,
         "visibleWhen": {
           "param": "field",
           "not": [
@@ -344,7 +654,7 @@
         "id": "strength",
         "node": "look",
         "prop": "strength",
-        "label": "Strength 1C\u2192soft",
+        "label": "Strength 1C→soft",
         "group": "Focus",
         "control": "slider",
         "min": 0,
@@ -363,7 +673,7 @@
           }
         ],
         "help": "0 = 1C, 1 = soft; the approved CLOUD OBSERVATORY is 0.3. Sets defocus, fade, sharp zone, falloff and dot tone together.",
-        "order": 18
+        "order": 35
       },
       {
         "id": "centre",
@@ -380,10 +690,11 @@
           "param": "field",
           "in": [
             "radial",
-            "tilt"
+            "tilt",
+            "bokeh"
           ]
         },
-        "order": 19
+        "order": 36
       },
       {
         "id": "angle",
@@ -395,12 +706,12 @@
         "min": -90,
         "max": 90,
         "step": 1,
-        "unit": "\u00b0",
+        "unit": "°",
         "visibleWhen": {
           "param": "field",
           "equals": "tilt"
         },
-        "order": 20
+        "order": 37
       },
       {
         "id": "sweep",
@@ -416,7 +727,7 @@
           "param": "field",
           "equals": "swept"
         },
-        "order": 21
+        "order": 38
       },
       {
         "id": "rhythm",
@@ -432,7 +743,7 @@
           "param": "field",
           "equals": "hunt"
         },
-        "order": 22
+        "order": 39
       },
       {
         "id": "dof",
@@ -449,7 +760,7 @@
           "param": "useStrength",
           "equals": false
         },
-        "order": 23
+        "order": 40
       },
       {
         "id": "span",
@@ -466,7 +777,7 @@
           "param": "useStrength",
           "equals": false
         },
-        "order": 24
+        "order": 41
       },
       {
         "id": "defocus",
@@ -483,7 +794,7 @@
           "param": "useStrength",
           "equals": false
         },
-        "order": 25
+        "order": 42
       },
       {
         "id": "fade",
@@ -499,7 +810,7 @@
           "param": "useStrength",
           "equals": false
         },
-        "order": 26
+        "order": 43
       },
       {
         "id": "bokeh",
@@ -522,7 +833,7 @@
             "label": "cat's eye"
           }
         ],
-        "order": 27
+        "order": 44
       },
       {
         "id": "rim",
@@ -541,7 +852,7 @@
             "cateye"
           ]
         },
-        "order": 28
+        "order": 45
       },
       {
         "id": "cat",
@@ -557,7 +868,7 @@
           "param": "bokeh",
           "equals": "cateye"
         },
-        "order": 29
+        "order": 46
       },
       {
         "id": "rings",
@@ -569,7 +880,7 @@
         "min": 0,
         "max": 3,
         "step": 0.01,
-        "order": 30
+        "order": 47
       },
       {
         "id": "ringTone",
@@ -581,7 +892,7 @@
         "min": -2,
         "max": 1,
         "step": 0.01,
-        "order": 31
+        "order": 48
       },
       {
         "id": "shrink",
@@ -594,7 +905,7 @@
         "max": 2,
         "step": 0.01,
         "help": "Defocused dots shrink toward a pen point",
-        "order": 32
+        "order": 49
       },
       {
         "id": "ghost",
@@ -606,7 +917,7 @@
         "min": 0,
         "max": 1,
         "step": 0.01,
-        "order": 33
+        "order": 50
       },
       {
         "id": "reticle",
@@ -618,7 +929,7 @@
         "min": 0,
         "max": 1.5,
         "step": 0.01,
-        "order": 34
+        "order": 51
       },
       {
         "id": "scale",
@@ -627,7 +938,7 @@
         "label": "Focus scale (ticks)",
         "group": "Focus",
         "control": "bool",
-        "order": 35
+        "order": 52
       },
       {
         "id": "scaleLength",
@@ -644,7 +955,43 @@
           "param": "scale",
           "equals": true
         },
-        "order": 36
+        "order": 53
+      },
+      {
+        "id": "falloff",
+        "node": "focus",
+        "prop": "falloff",
+        "label": "Falloff curve",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0.3,
+        "max": 4,
+        "step": 0.01,
+        "help": "Exponent of the blur curve: 1.2 the delivered; below 1 a soft shoulder, above 2 a sharp zone that drops",
+        "visibleWhen": {
+          "param": "field",
+          "not": [
+            "none"
+          ]
+        },
+        "order": 54
+      },
+      {
+        "id": "patch",
+        "node": "focus",
+        "prop": "patch",
+        "label": "Patch size",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0.05,
+        "max": 2,
+        "step": 0.01,
+        "help": "Bokeh style: blur patches as a share of the text's width, sharp islands between",
+        "visibleWhen": {
+          "param": "field",
+          "equals": "bokeh"
+        },
+        "order": 55
       },
       {
         "id": "blowAmount",
@@ -657,7 +1004,7 @@
         "max": 0.3,
         "step": 0.005,
         "help": "Share of the dots carried off the downwind edge (the book: 0.05; cloud-plots clips at 0.08)",
-        "order": 37
+        "order": 56
       },
       {
         "id": "blowAngle",
@@ -669,9 +1016,9 @@
         "min": -180,
         "max": 180,
         "step": 1,
-        "unit": "\u00b0",
+        "unit": "°",
         "help": "Where they travel: 0 right, 90 up. The book: 32 (wind from 238)",
-        "order": 38
+        "order": 57
       },
       {
         "id": "blowDistance",
@@ -684,7 +1031,53 @@
         "max": 3,
         "step": 0.01,
         "unit": "cap",
-        "order": 39
+        "order": 58
+      },
+      {
+        "id": "blowTurbulence",
+        "node": "blow",
+        "prop": "turbulence",
+        "label": "Turbulence",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "help": "A wavy, curling path whose swing grows along the drift",
+        "order": 59
+      },
+      {
+        "id": "blowCurl",
+        "node": "blow",
+        "prop": "curl",
+        "label": "Curl",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": 0.05,
+        "max": 3,
+        "step": 0.01,
+        "unit": "cap",
+        "help": "Wavelength of the turbulence",
+        "visibleWhen": {
+          "param": "blowTurbulence",
+          "not": [
+            0
+          ]
+        },
+        "order": 60
+      },
+      {
+        "id": "blowGravity",
+        "node": "blow",
+        "prop": "gravity",
+        "label": "Gravity",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": -1,
+        "max": 1,
+        "step": 0.01,
+        "help": "+ drifts up, − falls, growing with distance",
+        "order": 61
       },
       {
         "id": "density",
@@ -697,7 +1090,7 @@
         "max": 2.5,
         "step": 0.01,
         "help": "1 = cap / 34 pitch",
-        "order": 40
+        "order": 62
       },
       {
         "id": "dotSize",
@@ -709,8 +1102,8 @@
         "min": 0.1,
         "max": 1.5,
         "step": 0.01,
-        "unit": "\u00d7p",
-        "order": 41
+        "unit": "×p",
+        "order": 63
       },
       {
         "id": "growth",
@@ -722,7 +1115,7 @@
         "min": 0,
         "max": 1.5,
         "step": 0.01,
-        "order": 42
+        "order": 64
       },
       {
         "id": "tone",
@@ -739,7 +1132,7 @@
           "param": "useStrength",
           "equals": false
         },
-        "order": 43
+        "order": 65
       },
       {
         "id": "order",
@@ -752,7 +1145,7 @@
         "max": 2,
         "step": 0.05,
         "help": "Lloyd relaxation: 0 random, 1 near-hexagonal",
-        "order": 44
+        "order": 66
       },
       {
         "id": "pen",
@@ -771,7 +1164,7 @@
             "label": "0.2 mm"
           }
         ],
-        "order": 45
+        "order": 67
       },
       {
         "id": "minSpacing",
@@ -785,7 +1178,7 @@
         "step": 0.01,
         "unit": "mm",
         "help": "No two dot centres closer than this; set to the pen width so nib marks never merge",
-        "order": 46
+        "order": 68
       },
       {
         "id": "colour",
@@ -794,7 +1187,7 @@
         "label": "Dots",
         "group": "Colour and page",
         "control": "color",
-        "order": 47,
+        "order": 69,
         "help": "The default ink (#181818) follows the ground: dark on white or transparent, light on black. Any other colour is kept as chosen."
       },
       {
@@ -818,7 +1211,7 @@
             "label": "transparent"
           }
         ],
-        "order": 48
+        "order": 70
       },
       {
         "id": "pageMode",
@@ -837,7 +1230,7 @@
             "label": "custom"
           }
         ],
-        "order": 49
+        "order": 71
       },
       {
         "id": "margin",
@@ -854,7 +1247,7 @@
           "param": "pageMode",
           "equals": "fit"
         },
-        "order": 50
+        "order": 72
       },
       {
         "id": "pageSize",
@@ -872,7 +1265,7 @@
           "param": "pageMode",
           "equals": "custom"
         },
-        "order": 51
+        "order": 73
       },
       {
         "id": "textOrigin",
@@ -889,7 +1282,7 @@
           "param": "pageMode",
           "equals": "custom"
         },
-        "order": 52
+        "order": 74
       },
       {
         "id": "dpi",
@@ -916,7 +1309,7 @@
             "label": "1200 dpi"
           }
         ],
-        "order": 53
+        "order": 75
       },
       {
         "id": "pngGround",
@@ -939,7 +1332,7 @@
             "label": "black"
           }
         ],
-        "order": 54
+        "order": 76
       },
       {
         "id": "svgLayers",
@@ -951,14 +1344,14 @@
         "options": [
           {
             "value": "size",
-            "label": "1 small \u00b7 2 medium \u00b7 3 large"
+            "label": "1 small · 2 medium · 3 large"
           },
           {
             "value": "single",
             "label": "0 title (one layer)"
           }
         ],
-        "order": 55
+        "order": 77
       }
     ],
     "outputs": [
@@ -998,7 +1391,7 @@
     "presets": [
       {
         "id": "co-approved",
-        "label": "CLOUD OBSERVATORY \u00b7 approved (final, 30% toward soft)",
+        "label": "CLOUD OBSERVATORY · approved (final, 30% toward soft)",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1050,7 +1443,29 @@
           "fade": 0.405,
           "dof": 0.209,
           "span": 0.516,
-          "tone": 0.745
+          "tone": 0.745,
+          "grid": 0,
+          "jitter": 0,
+          "sizeVar": 0,
+          "weight": 0,
+          "stack": 0,
+          "erode": 0,
+          "erodeMode": "edge",
+          "erodeAngle": 0,
+          "erodeScale": 0.5,
+          "release": 0,
+          "releaseDist": 0.6,
+          "letterVar": 0,
+          "stagger": 0,
+          "staggerAngle": 90,
+          "smear": 0,
+          "smearAngle": 0,
+          "smearLen": 0.8,
+          "falloff": 1.2,
+          "patch": 0.35,
+          "blowTurbulence": 0,
+          "blowCurl": 0.6,
+          "blowGravity": 0
         },
         "keep": [
           "colour",
@@ -1066,7 +1481,7 @@
       },
       {
         "id": "co-halfway",
-        "label": "CLOUD OBSERVATORY \u00b7 1C-halfway (not the default)",
+        "label": "CLOUD OBSERVATORY · 1C-halfway (not the default)",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1118,7 +1533,29 @@
           "fade": 0.375,
           "dof": 0.5,
           "span": 0.54,
-          "tone": 0.775
+          "tone": 0.775,
+          "grid": 0,
+          "jitter": 0,
+          "sizeVar": 0,
+          "weight": 0,
+          "stack": 0,
+          "erode": 0,
+          "erodeMode": "edge",
+          "erodeAngle": 0,
+          "erodeScale": 0.5,
+          "release": 0,
+          "releaseDist": 0.6,
+          "letterVar": 0,
+          "stagger": 0,
+          "staggerAngle": 90,
+          "smear": 0,
+          "smearAngle": 0,
+          "smearLen": 0.8,
+          "falloff": 1.2,
+          "patch": 0.35,
+          "blowTurbulence": 0,
+          "blowCurl": 0.6,
+          "blowGravity": 0
         },
         "keep": [
           "colour",
@@ -1134,7 +1571,7 @@
       },
       {
         "id": "isolon-approved",
-        "label": "IN SEARCH OF A LONGER NOW \u00b7 approved (1C)",
+        "label": "IN SEARCH OF A LONGER NOW · approved (1C)",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1186,7 +1623,29 @@
           "fade": 0.45,
           "dof": 0.2206,
           "span": 0.6229,
-          "tone": 1.0
+          "tone": 1.0,
+          "grid": 0,
+          "jitter": 0,
+          "sizeVar": 0,
+          "weight": 0,
+          "stack": 0,
+          "erode": 0,
+          "erodeMode": "edge",
+          "erodeAngle": 0,
+          "erodeScale": 0.5,
+          "release": 0,
+          "releaseDist": 0.6,
+          "letterVar": 0,
+          "stagger": 0,
+          "staggerAngle": 90,
+          "smear": 0,
+          "smearAngle": 0,
+          "smearLen": 0.8,
+          "falloff": 1.2,
+          "patch": 0.35,
+          "blowTurbulence": 0,
+          "blowCurl": 0.6,
+          "blowGravity": 0
         },
         "keep": [
           "colour",
@@ -1202,7 +1661,7 @@
       },
       {
         "id": "co-1c",
-        "label": "CLOUD OBSERVATORY \u00b7 1C",
+        "label": "CLOUD OBSERVATORY · 1C",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1254,7 +1713,29 @@
           "fade": 0.45,
           "dof": 0.17,
           "span": 0.48,
-          "tone": 0.7
+          "tone": 0.7,
+          "grid": 0,
+          "jitter": 0,
+          "sizeVar": 0,
+          "weight": 0,
+          "stack": 0,
+          "erode": 0,
+          "erodeMode": "edge",
+          "erodeAngle": 0,
+          "erodeScale": 0.5,
+          "release": 0,
+          "releaseDist": 0.6,
+          "letterVar": 0,
+          "stagger": 0,
+          "staggerAngle": 90,
+          "smear": 0,
+          "smearAngle": 0,
+          "smearLen": 0.8,
+          "falloff": 1.2,
+          "patch": 0.35,
+          "blowTurbulence": 0,
+          "blowCurl": 0.6,
+          "blowGravity": 0
         },
         "keep": [
           "colour",
@@ -1270,7 +1751,7 @@
       },
       {
         "id": "co-soft",
-        "label": "CLOUD OBSERVATORY \u00b7 soft",
+        "label": "CLOUD OBSERVATORY · soft",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1322,7 +1803,29 @@
           "fade": 0.3,
           "dof": 0.3,
           "span": 0.6,
-          "tone": 0.85
+          "tone": 0.85,
+          "grid": 0,
+          "jitter": 0,
+          "sizeVar": 0,
+          "weight": 0,
+          "stack": 0,
+          "erode": 0,
+          "erodeMode": "edge",
+          "erodeAngle": 0,
+          "erodeScale": 0.5,
+          "release": 0,
+          "releaseDist": 0.6,
+          "letterVar": 0,
+          "stagger": 0,
+          "staggerAngle": 90,
+          "smear": 0,
+          "smearAngle": 0,
+          "smearLen": 0.8,
+          "falloff": 1.2,
+          "patch": 0.35,
+          "blowTurbulence": 0,
+          "blowCurl": 0.6,
+          "blowGravity": 0
         },
         "keep": [
           "colour",
@@ -1502,6 +2005,35 @@
       }
     },
     {
+      "id": "express",
+      "module": "project.express",
+      "position": [
+        650,
+        -140
+      ],
+      "source": "project",
+      "comment": "Express: regularity, weight, dissolve, letters, motion (typeexpr). Defaults are the identity. Out: points (t, comp).",
+      "props": {
+        "grid": 0,
+        "jitter": 0,
+        "sizeVar": 0,
+        "weight": 0,
+        "stack": 0,
+        "erode": 0,
+        "erodeMode": "edge",
+        "erodeAngle": 0,
+        "erodeScale": 0.5,
+        "release": 0,
+        "releaseDist": 0.6,
+        "letterVar": 0,
+        "stagger": 0,
+        "staggerAngle": 90,
+        "smear": 0,
+        "smearAngle": 0,
+        "smearLen": 0.8
+      }
+    },
+    {
       "id": "focus",
       "module": "project.focus",
       "position": [
@@ -1528,7 +2060,9 @@
         "ghost": 0,
         "reticle": 0,
         "scale": false,
-        "scaleLength": 0.55
+        "scaleLength": 0.55,
+        "falloff": 1.2,
+        "patch": 0.35
       }
     },
     {
@@ -1614,7 +2148,10 @@
       "props": {
         "amount": 0.05,
         "angle": 32,
-        "distance": 0.5
+        "distance": 0.5,
+        "turbulence": 0,
+        "curl": 0.6,
+        "gravity": 0
       }
     },
     {
@@ -1859,6 +2396,30 @@
     [
       [
         "stipple",
+        0,
+        "points"
+      ],
+      [
+        "express",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "spec",
+        0,
+        "spec"
+      ],
+      [
+        "express",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "express",
         0,
         "points"
       ],

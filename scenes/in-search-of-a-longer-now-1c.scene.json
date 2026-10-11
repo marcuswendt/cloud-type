@@ -3,7 +3,7 @@
   "version": 1,
   "graph": {
     "id": "cloud-type",
-    "version": "h77d97e88f213c05d"
+    "version": "h4704ea9ff9b4d898"
   },
   "name": "IN SEARCH OF A LONGER NOW, approved (1C)",
   "values": {
@@ -57,7 +57,29 @@
     "fade": 0.45,
     "dof": 0.2206,
     "span": 0.6229,
-    "tone": 1.0
+    "tone": 1,
+    "grid": 0,
+    "jitter": 0,
+    "sizeVar": 0,
+    "weight": 0,
+    "stack": 0,
+    "erode": 0,
+    "erodeMode": "edge",
+    "erodeAngle": 0,
+    "erodeScale": 0.5,
+    "release": 0,
+    "releaseDist": 0.6,
+    "letterVar": 0,
+    "stagger": 0,
+    "staggerAngle": 90,
+    "smear": 0,
+    "smearAngle": 0,
+    "smearLen": 0.8,
+    "falloff": 1.2,
+    "patch": 0.35,
+    "blowTurbulence": 0,
+    "blowCurl": 0.6,
+    "blowGravity": 0
   },
   "files": {},
   "savedAt": "2026-10-11T22:00:00Z"

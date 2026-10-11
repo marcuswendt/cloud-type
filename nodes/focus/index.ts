@@ -22,7 +22,7 @@ export const definition = {
   props: {
     field: {
       type: 'string', default: 'radial', control: 'select', label: 'Style',
-      options: [{ value: 'none', label: 'none (sharp)' }, { value: 'radial', label: 'radial' }, { value: 'tilt', label: 'tilt' }, { value: 'swept', label: 'swept' }, { value: 'hunt', label: 'hunt' }]
+      options: [{ value: 'none', label: 'none (sharp)' }, { value: 'radial', label: 'radial' }, { value: 'tilt', label: 'tilt' }, { value: 'swept', label: 'swept' }, { value: 'hunt', label: 'hunt' }, { value: 'bokeh', label: 'bokeh (patches)' }]
     },
     centre: { type: 'vec2', default: [0.35, 0.5], min: -0.5, max: 3, step: 0.001, label: 'Focal point', description: "Share of the text's box" },
     angle: { type: 'float', default: 20, min: -90, max: 90, step: 1, label: 'Angle', description: 'degrees' },
@@ -37,6 +37,8 @@ export const definition = {
     ghost: { type: 'float', default: 0, min: 0, max: 1, step: 0.01, label: 'Ghost' },
     reticle: { type: 'float', default: 0, min: 0, max: 1.5, step: 0.01, label: 'Reticle' },
     scale: { type: 'bool', default: false, label: 'Focus scale (ticks)' },
+    falloff: { type: 'float', default: 1.2, min: 0.3, max: 4, step: 0.01, label: 'Falloff curve', description: 'Exponent: 1.2 the delivered; below 1 a soft shoulder, above 2 a sharp zone that drops' },
+    patch: { type: 'float', default: 0.35, min: 0.05, max: 2, step: 0.01, label: 'Patch size', description: "Bokeh field: blur patches as a share of the text's width" },
     scaleLength: { type: 'float', default: 0.55, min: 0.05, max: 1, step: 0.0001, label: 'Scale length', description: "Share of the text's width" }
   },
   outputs: {
@@ -54,7 +56,7 @@ export function execute(context: NodeExecutionContext<typeof definition>) {
   const seed = Number(spec.seed ?? 7);
   let dots: Dot[] = geometryToDots(g);
   const field = p.field;
-  if (dots.length && (field === 'radial' || field === 'tilt' || field === 'swept' || field === 'hunt')) {
+  if (dots.length && (field === 'radial' || field === 'tilt' || field === 'swept' || field === 'hunt' || field === 'bokeh')) {
     const compRaw = pointAttr(g, 'comp');
     const comp = compRaw instanceof Int32Array ? compRaw : Int32Array.from(compRaw ?? new Int32Array(dots.length));
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -66,7 +68,7 @@ export function execute(context: NodeExecutionContext<typeof definition>) {
       field, center, angle: p.angle, dof: Number(look.dof), span: Number(look.span), defocus: Number(look.defocus),
       kernel, rim: p.rim, cat: p.cat, fade: Number(look.fade), ghost: p.ghost, ghostDir: [0.6, -0.3], sweep: p.sweep,
       rhythm: p.rhythm, seed, bbox, orderRange: [0, 1], rings: p.rings, ringPitch: pitch * 1.3, shrink: p.shrink,
-      ringTone: p.ringTone
+      ringTone: p.ringTone, falloff: p.falloff, patch: p.patch
     });
     if (p.reticle > 0) dots = dots.concat(reticle(bbox, capMm, pitch, center, p.reticle, p.scale, p.scaleLength));
   }

@@ -3,7 +3,7 @@
   "version": 1,
   "graph": {
     "id": "cloud-type",
-    "version": "h77d97e88f213c05d"
+    "version": "h4704ea9ff9b4d898"
   },
   "name": "CLOUD OBSERVATORY, final (30% from 1C toward soft)",
   "values": {
@@ -57,7 +57,29 @@
     "fade": 0.405,
     "dof": 0.209,
     "span": 0.516,
-    "tone": 0.745
+    "tone": 0.745,
+    "grid": 0,
+    "jitter": 0,
+    "sizeVar": 0,
+    "weight": 0,
+    "stack": 0,
+    "erode": 0,
+    "erodeMode": "edge",
+    "erodeAngle": 0,
+    "erodeScale": 0.5,
+    "release": 0,
+    "releaseDist": 0.6,
+    "letterVar": 0,
+    "stagger": 0,
+    "staggerAngle": 90,
+    "smear": 0,
+    "smearAngle": 0,
+    "smearLen": 0.8,
+    "falloff": 1.2,
+    "patch": 0.35,
+    "blowTurbulence": 0,
+    "blowCurl": 0.6,
+    "blowGravity": 0
   },
   "files": {},
   "savedAt": "2026-10-11T22:00:00Z"

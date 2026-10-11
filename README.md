@@ -93,8 +93,9 @@ For a new headline: open a scene in the editor or Studio, change `text` (and cap
 | Spec | `spec` | bundle `spec`: capMm, pitchMm (cap / 34 clamped 0.28-0.6, / density, or explicit), seed, penMm, quality |
 | Source (subnet) | `type-set` → `outline-mask`; `image-mask`; `cascade.core.Switch` picks one | `type-set` gives the glyph outlines as closed polygons (mm, inspect as wireframe); the subnet gives a `cloudtype.mask` |
 | Stipple | `stipple` | points (mm) with `t` (tone) and `comp` (letter) |
+| Express | `express` | points after the type expression (regularity, weight, dissolve, letters, motion); `comp` kept and updated. Every default is the identity |
 | Look | `look` | bundle `look`: defocus, fade, dof, span, tone. With *use strength* on, `titlepage.between(strength)` (0 = 1C, 1 = soft); off, by hand |
-| Focus | `focus` | points after the lens: radial / tilt / swept / hunt, disc / ring / cat's-eye bokeh, rings, ghost, shrink, reticle, focus scale |
+| Focus | `focus` | points after the lens: radial / tilt / swept / hunt / bokeh, disc / ring / cat's-eye bokeh, rings, ghost, shrink, reticle, focus scale |
 | Finish (subnet) | `dot-scale` → `blow` → `pen-sizes` → `thin` | points with `size` (mm, quarter-pen steps) and `blown` |
 | Page | `page` | points in page mm, detail `pageMm` (fit with a margin, or a custom page and text origin) |
 | Outputs | `plot-svg`, `preview-svg`, `png`, fed colour and ground by `style` | plotter SVG (layers 1/2/3 by size or one 0 title), filled preview SVG (the viewer), PNG at 150-1200 dpi |
@@ -103,7 +104,15 @@ Geometry on the wires is +Y up (Cascade's convention); the generator works y-dow
 
 Presets (in the editor's preset menu): `co-approved` is **final**, the approved CLOUD OBSERVATORY (30% of the way from 1C toward soft); `co-halfway` is 1C-halfway; `isolon-approved` is IN SEARCH OF A LONGER NOW, exactly 1C; `co-1c` and `co-soft` are the two ends.
 
-The `editor` section publishes every control of the standalone app (groups Input, Focus, Blown dots, Dots, Colour and page, Export), its four presets, the three outputs and the shippable assets.
+The `editor` section publishes every control of the standalone app (groups Input, Expression, Focus, Blown dots, Dots, Colour and page, Export), its four presets, the three outputs and the shippable assets.
+
+## Expression
+
+The `express` node (the editor's Expression group) ports cloud-plots' `typeexpr.express` line for line, so each headline can be crafted rather than given one uniform effect. It sits between the stipple and the focus and works on the dots alone: *grid* pulls dots onto a hexagonal lattice (past 0.5 one dot per node) and *jitter* scatters them; *size variation* spreads dot sizes; *weight* makes the letters' cores heavier and *stack* doubles some core dots; *erode* dissolves a share of the dots from one edge of the headline, from each letter's own edge (*strokes*), as holes from inside (*within*) or outline first (*rim*), and *release* carries some of the eroded dots off instead of dropping them; *letter variation* gives each letter its own small rotation, tone and nudge and *stagger* shifts letters so they sit unevenly; *smear* adds a fading motion trail behind the letters.
+
+Every random draw is a 32-bit integer hash of (seed, salt, index), so the same input dots give the same output dots as the Python. `scripts/parity-express.ts <in.json> [out.json]` runs the stage on `{dots: [[x, y, t]...], comp, capMm, pitchMm, seed, params}` for comparison with `typeexpr.express`. All Expression defaults are the identity, so the presets and scenes render exactly as before.
+
+Focus gains a *bokeh* style (patches of blur drifting across the type, sharp islands between; *patch size* sets their scale) and a *falloff curve* exponent (1.2 is the delivered curve; below 1 a soft shoulder, above 2 a sharp zone that drops). Blown dots gain *turbulence* (a wavy, curling path whose wavelength is *curl* caps) and *gravity* (+ drifts up, − falls); both 0 is the delivered blow, draw for draw.
 
 ## Fonts
 
