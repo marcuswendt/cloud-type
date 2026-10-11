@@ -1,0 +1,11 @@
+node_modules/
+.cascade-cache/
+export/
+exports/
+renders/
+.vercel
+.env*
+.DS_Store
+# Licensed fonts (Helvetica Now Display: FIELD holds 2 desktop seats) never enter this repo.
+licensed/
+**/licensed/

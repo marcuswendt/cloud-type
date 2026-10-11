@@ -1,0 +1,27 @@
+{
+  "name": "cloud-type",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloud Type as a Cascade graph: dotted cloud type after cloud-plots' titletype.",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "test": "npm run check && npm run check:graph && npm run validate && npm run run",
+    "check": "tsc --noEmit && tsc --noEmit -p scripts",
+    "check:graph": "cascade check cloud-type.cascade",
+    "validate": "cascade validate cloud-type.cascade",
+    "run": "cascade run cloud-type.cascade",
+    "parity": "tsx scripts/parity-dots.ts"
+  },
+  "dependencies": {
+    "opentype.js": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "cascade": "file:../../Dev/cascade",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}

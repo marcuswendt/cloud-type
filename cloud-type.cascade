@@ -1,0 +1,1961 @@
+{
+  "version": "0.2",
+  "metadata": {
+    "name": "Cloud Type",
+    "created": "2026-10-11T00:00:00.000Z",
+    "modified": "2026-10-11T00:00:00.000Z"
+  },
+  "editor": {
+    "id": "cloud-type",
+    "title": "Cloud Type",
+    "description": "Dotted cloud type, after cloud-plots' titletype: a headline or an image to plotter dots, with the book's focus and blown dots.",
+    "groups": [
+      "Input",
+      "Focus",
+      "Blown dots",
+      "Dots",
+      "Colour and page",
+      "Export"
+    ],
+    "parameters": [
+      {
+        "id": "source",
+        "node": "source-switch",
+        "prop": "index",
+        "label": "Source",
+        "group": "Input",
+        "control": "select",
+        "options": [
+          {
+            "value": 0,
+            "label": "Text"
+          },
+          {
+            "value": 1,
+            "label": "Image"
+          }
+        ],
+        "order": 0
+      },
+      {
+        "id": "seed",
+        "node": "spec",
+        "prop": "seed",
+        "label": "Seed",
+        "group": "Input",
+        "control": "seed",
+        "help": "A new seed: same look, new dots",
+        "order": 1
+      },
+      {
+        "id": "text",
+        "node": "type-set",
+        "prop": "text",
+        "label": "Text",
+        "group": "Input",
+        "control": "textarea",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 2
+      },
+      {
+        "id": "font",
+        "node": "type-set",
+        "prop": "font",
+        "label": "Font",
+        "group": "Input",
+        "control": "file",
+        "accept": [
+          ".otf",
+          ".ttf"
+        ],
+        "embed": "never",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "help": "Drop in your licensed font to match the book. It is read here, in your browser, and never uploaded. Default: Inter Display Medium (OFL).",
+        "order": 3
+      },
+      {
+        "id": "capMm",
+        "node": "spec",
+        "prop": "capMm",
+        "label": "Cap height",
+        "group": "Input",
+        "control": "slider",
+        "min": 3,
+        "max": 60,
+        "step": 0.01,
+        "unit": "mm",
+        "help": "For an image source, the effect scale: the cap height the focus and blown dots are measured in",
+        "order": 4
+      },
+      {
+        "id": "leading",
+        "node": "type-set",
+        "prop": "leading",
+        "label": "Leading",
+        "group": "Input",
+        "control": "slider",
+        "min": 0.8,
+        "max": 2,
+        "step": 0.001,
+        "unit": "cap",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 5
+      },
+      {
+        "id": "tracking",
+        "node": "type-set",
+        "prop": "tracking",
+        "label": "Tracking",
+        "group": "Input",
+        "control": "slider",
+        "min": -0.2,
+        "max": 0.4,
+        "step": 0.0001,
+        "unit": "cap",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 6
+      },
+      {
+        "id": "width",
+        "node": "type-set",
+        "prop": "width",
+        "label": "Width",
+        "group": "Input",
+        "control": "slider",
+        "min": 0.6,
+        "max": 1.4,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 7
+      },
+      {
+        "id": "indents",
+        "node": "type-set",
+        "prop": "indents",
+        "label": "Line indents",
+        "group": "Input",
+        "control": "text",
+        "help": "e.g. 2.27, 0, 0 (caps)",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 8
+      },
+      {
+        "id": "align",
+        "node": "type-set",
+        "prop": "align",
+        "label": "Align",
+        "group": "Input",
+        "control": "select",
+        "options": [
+          {
+            "value": "left",
+            "label": "left"
+          },
+          {
+            "value": "center",
+            "label": "centre"
+          },
+          {
+            "value": "right",
+            "label": "right"
+          }
+        ],
+        "visibleWhen": {
+          "param": "source",
+          "equals": 0
+        },
+        "order": 9
+      },
+      {
+        "id": "image",
+        "node": "image-mask",
+        "prop": "image",
+        "label": "Image",
+        "group": "Input",
+        "control": "file",
+        "accept": [
+          "image/*"
+        ],
+        "embed": "auto",
+        "help": "Dark is ink.",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 1
+        },
+        "order": 10
+      },
+      {
+        "id": "imageMode",
+        "node": "image-mask",
+        "prop": "mode",
+        "label": "Image mode",
+        "group": "Input",
+        "control": "select",
+        "options": [
+          {
+            "value": "threshold",
+            "label": "Threshold"
+          },
+          {
+            "value": "luminance",
+            "label": "Luminance"
+          }
+        ],
+        "visibleWhen": {
+          "param": "source",
+          "equals": 1
+        },
+        "order": 11
+      },
+      {
+        "id": "threshold",
+        "node": "image-mask",
+        "prop": "threshold",
+        "label": "Threshold",
+        "group": "Input",
+        "control": "slider",
+        "min": 0.02,
+        "max": 0.98,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "source",
+          "equals": 1
+        },
+        "order": 12
+      },
+      {
+        "id": "floor",
+        "node": "image-mask",
+        "prop": "floor",
+        "label": "Density floor",
+        "group": "Input",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "imageMode",
+          "equals": "luminance"
+        },
+        "order": 13
+      },
+      {
+        "id": "invert",
+        "node": "image-mask",
+        "prop": "invert",
+        "label": "Invert (light is ink)",
+        "group": "Input",
+        "control": "bool",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 1
+        },
+        "order": 14
+      },
+      {
+        "id": "imageHeight",
+        "node": "image-mask",
+        "prop": "heightMm",
+        "label": "Image height",
+        "group": "Input",
+        "control": "slider",
+        "min": 5,
+        "max": 250,
+        "step": 0.5,
+        "unit": "mm",
+        "visibleWhen": {
+          "param": "source",
+          "equals": 1
+        },
+        "order": 15
+      },
+      {
+        "id": "field",
+        "node": "focus",
+        "prop": "field",
+        "label": "Style",
+        "group": "Focus",
+        "control": "select",
+        "options": [
+          {
+            "value": "none",
+            "label": "none (sharp)"
+          },
+          {
+            "value": "radial",
+            "label": "radial"
+          },
+          {
+            "value": "tilt",
+            "label": "tilt"
+          },
+          {
+            "value": "swept",
+            "label": "swept"
+          },
+          {
+            "value": "hunt",
+            "label": "hunt"
+          }
+        ],
+        "order": 16
+      },
+      {
+        "id": "useStrength",
+        "node": "look",
+        "prop": "useStrength",
+        "label": "Use strength 1C→soft",
+        "group": "Focus",
+        "control": "bool",
+        "help": "On: defocus, fade, sharp zone, falloff and dot tone follow the strength. Off: set them by hand.",
+        "order": 17
+      },
+      {
+        "id": "strength",
+        "node": "look",
+        "prop": "strength",
+        "label": "Strength 1C→soft",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": true
+        },
+        "help": "0 = 1C, 1 = soft; the approved CLOUD OBSERVATORY is 0.1. Sets defocus, fade, sharp zone, falloff and dot tone together.",
+        "order": 18
+      },
+      {
+        "id": "centre",
+        "node": "focus",
+        "prop": "centre",
+        "label": "Focal point",
+        "group": "Focus",
+        "control": "vec2",
+        "min": -0.5,
+        "max": 3,
+        "step": 0.001,
+        "help": "x, y as a share of the text's box",
+        "visibleWhen": {
+          "param": "field",
+          "in": [
+            "radial",
+            "tilt"
+          ]
+        },
+        "order": 19
+      },
+      {
+        "id": "angle",
+        "node": "focus",
+        "prop": "angle",
+        "label": "Angle",
+        "group": "Focus",
+        "control": "slider",
+        "min": -90,
+        "max": 90,
+        "step": 1,
+        "unit": "°",
+        "visibleWhen": {
+          "param": "field",
+          "equals": "tilt"
+        },
+        "order": 20
+      },
+      {
+        "id": "sweep",
+        "node": "focus",
+        "prop": "sweep",
+        "label": "Sweep",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "field",
+          "equals": "swept"
+        },
+        "order": 21
+      },
+      {
+        "id": "rhythm",
+        "node": "focus",
+        "prop": "rhythm",
+        "label": "Rhythm",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0.5,
+        "max": 8,
+        "step": 0.1,
+        "visibleWhen": {
+          "param": "field",
+          "equals": "hunt"
+        },
+        "order": 22
+      },
+      {
+        "id": "dof",
+        "node": "look",
+        "prop": "dof",
+        "label": "Sharp zone",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.001,
+        "help": "dof: share of the text's width kept sharp",
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": false
+        },
+        "order": 23
+      },
+      {
+        "id": "span",
+        "node": "look",
+        "prop": "span",
+        "label": "Falloff",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0.02,
+        "max": 1.5,
+        "step": 0.001,
+        "help": "span: distance to full blur",
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": false
+        },
+        "order": 24
+      },
+      {
+        "id": "defocus",
+        "node": "look",
+        "prop": "defocus",
+        "label": "Defocus",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1.2,
+        "step": 0.001,
+        "unit": "cap",
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": false
+        },
+        "order": 25
+      },
+      {
+        "id": "fade",
+        "node": "look",
+        "prop": "fade",
+        "label": "Fade",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.001,
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": false
+        },
+        "order": 26
+      },
+      {
+        "id": "bokeh",
+        "node": "focus",
+        "prop": "bokeh",
+        "label": "Bokeh",
+        "group": "Focus",
+        "control": "select",
+        "options": [
+          {
+            "value": "disc",
+            "label": "disc"
+          },
+          {
+            "value": "ring",
+            "label": "ring"
+          },
+          {
+            "value": "cateye",
+            "label": "cat's eye"
+          }
+        ],
+        "order": 27
+      },
+      {
+        "id": "rim",
+        "node": "focus",
+        "prop": "rim",
+        "label": "Rim",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "bokeh",
+          "in": [
+            "ring",
+            "cateye"
+          ]
+        },
+        "order": 28
+      },
+      {
+        "id": "cat",
+        "node": "focus",
+        "prop": "cat",
+        "label": "Cat's eye",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 0.95,
+        "step": 0.01,
+        "visibleWhen": {
+          "param": "bokeh",
+          "equals": "cateye"
+        },
+        "order": 29
+      },
+      {
+        "id": "rings",
+        "node": "focus",
+        "prop": "rings",
+        "label": "Bokeh rings",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 3,
+        "step": 0.01,
+        "order": 30
+      },
+      {
+        "id": "ringTone",
+        "node": "focus",
+        "prop": "ringTone",
+        "label": "Ring tone",
+        "group": "Focus",
+        "control": "slider",
+        "min": -2,
+        "max": 1,
+        "step": 0.01,
+        "order": 31
+      },
+      {
+        "id": "shrink",
+        "node": "focus",
+        "prop": "shrink",
+        "label": "Shrink",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 2,
+        "step": 0.01,
+        "help": "Defocused dots shrink toward a pen point",
+        "order": 32
+      },
+      {
+        "id": "ghost",
+        "node": "focus",
+        "prop": "ghost",
+        "label": "Ghost",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "order": 33
+      },
+      {
+        "id": "reticle",
+        "node": "focus",
+        "prop": "reticle",
+        "label": "Reticle",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0,
+        "max": 1.5,
+        "step": 0.01,
+        "order": 34
+      },
+      {
+        "id": "scale",
+        "node": "focus",
+        "prop": "scale",
+        "label": "Focus scale (ticks)",
+        "group": "Focus",
+        "control": "bool",
+        "order": 35
+      },
+      {
+        "id": "scaleLength",
+        "node": "focus",
+        "prop": "scaleLength",
+        "label": "Scale length",
+        "group": "Focus",
+        "control": "slider",
+        "min": 0.05,
+        "max": 1,
+        "step": 0.0001,
+        "help": "Share of the text's width",
+        "visibleWhen": {
+          "param": "scale",
+          "equals": true
+        },
+        "order": 36
+      },
+      {
+        "id": "blowAmount",
+        "node": "blow",
+        "prop": "amount",
+        "label": "Amount",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": 0,
+        "max": 0.3,
+        "step": 0.005,
+        "help": "Share of the dots carried off the downwind edge (the book: 0.05; cloud-plots clips at 0.08)",
+        "order": 37
+      },
+      {
+        "id": "blowAngle",
+        "node": "blow",
+        "prop": "angle",
+        "label": "Direction",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": -180,
+        "max": 180,
+        "step": 1,
+        "unit": "°",
+        "help": "Where they travel: 0 right, 90 up. The book: 32 (wind from 238)",
+        "order": 38
+      },
+      {
+        "id": "blowDistance",
+        "node": "blow",
+        "prop": "distance",
+        "label": "Distance",
+        "group": "Blown dots",
+        "control": "slider",
+        "min": 0,
+        "max": 3,
+        "step": 0.01,
+        "unit": "cap",
+        "order": 39
+      },
+      {
+        "id": "density",
+        "node": "spec",
+        "prop": "density",
+        "label": "Density",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0.4,
+        "max": 2.5,
+        "step": 0.01,
+        "help": "1 = cap / 34 pitch",
+        "order": 40
+      },
+      {
+        "id": "dotSize",
+        "node": "pen-sizes",
+        "prop": "dotSize",
+        "label": "Dot size",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0.1,
+        "max": 1.5,
+        "step": 0.01,
+        "unit": "×p",
+        "order": 41
+      },
+      {
+        "id": "growth",
+        "node": "dot-scale",
+        "prop": "growth",
+        "label": "Size growth",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0,
+        "max": 1.5,
+        "step": 0.01,
+        "order": 42
+      },
+      {
+        "id": "tone",
+        "node": "look",
+        "prop": "tone",
+        "label": "Tone",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0.2,
+        "max": 1.5,
+        "step": 0.001,
+        "help": "Multiplies every dot's size (the mockup's grey title is 0.7)",
+        "visibleWhen": {
+          "param": "useStrength",
+          "equals": false
+        },
+        "order": 43
+      },
+      {
+        "id": "order",
+        "node": "stipple",
+        "prop": "order",
+        "label": "Order",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0,
+        "max": 2,
+        "step": 0.05,
+        "help": "Lloyd relaxation: 0 random, 1 near-hexagonal",
+        "order": 44
+      },
+      {
+        "id": "pen",
+        "node": "spec",
+        "prop": "penMm",
+        "label": "Pen",
+        "group": "Dots",
+        "control": "select",
+        "options": [
+          {
+            "value": 0.1,
+            "label": "0.1 mm"
+          },
+          {
+            "value": 0.2,
+            "label": "0.2 mm"
+          }
+        ],
+        "order": 45
+      },
+      {
+        "id": "minSpacing",
+        "node": "thin",
+        "prop": "minSpacingMm",
+        "label": "Min spacing",
+        "group": "Dots",
+        "control": "slider",
+        "min": 0,
+        "max": 0.8,
+        "step": 0.01,
+        "unit": "mm",
+        "help": "No two dot centres closer than this; set to the pen width so nib marks never merge",
+        "order": 46
+      },
+      {
+        "id": "colour",
+        "node": "style",
+        "prop": "colour",
+        "label": "Dots",
+        "group": "Colour and page",
+        "control": "color",
+        "order": 47
+      },
+      {
+        "id": "ground",
+        "node": "style",
+        "prop": "ground",
+        "label": "Ground",
+        "group": "Colour and page",
+        "control": "select",
+        "options": [
+          {
+            "value": "white",
+            "label": "white"
+          },
+          {
+            "value": "black",
+            "label": "black"
+          },
+          {
+            "value": "transparent",
+            "label": "transparent"
+          }
+        ],
+        "order": 48
+      },
+      {
+        "id": "pageMode",
+        "node": "page",
+        "prop": "mode",
+        "label": "Page",
+        "group": "Colour and page",
+        "control": "select",
+        "options": [
+          {
+            "value": "fit",
+            "label": "fit"
+          },
+          {
+            "value": "custom",
+            "label": "custom"
+          }
+        ],
+        "order": 49
+      },
+      {
+        "id": "margin",
+        "node": "page",
+        "prop": "marginMm",
+        "label": "Margin",
+        "group": "Colour and page",
+        "control": "slider",
+        "min": 0,
+        "max": 40,
+        "step": 0.5,
+        "unit": "mm",
+        "visibleWhen": {
+          "param": "pageMode",
+          "equals": "fit"
+        },
+        "order": 50
+      },
+      {
+        "id": "pageSize",
+        "node": "page",
+        "prop": "pageSize",
+        "label": "Page size",
+        "group": "Colour and page",
+        "control": "vec2",
+        "min": 20,
+        "max": 600,
+        "step": 0.5,
+        "unit": "mm",
+        "help": "width, height",
+        "visibleWhen": {
+          "param": "pageMode",
+          "equals": "custom"
+        },
+        "order": 51
+      },
+      {
+        "id": "textOrigin",
+        "node": "page",
+        "prop": "textOrigin",
+        "label": "Text x, first baseline",
+        "group": "Colour and page",
+        "control": "vec2",
+        "min": -50,
+        "max": 500,
+        "step": 0.001,
+        "unit": "mm",
+        "visibleWhen": {
+          "param": "pageMode",
+          "equals": "custom"
+        },
+        "order": 52
+      },
+      {
+        "id": "dpi",
+        "node": "png",
+        "prop": "dpi",
+        "label": "PNG",
+        "group": "Export",
+        "control": "select",
+        "options": [
+          {
+            "value": 150,
+            "label": "150 dpi"
+          },
+          {
+            "value": 300,
+            "label": "300 dpi"
+          },
+          {
+            "value": 600,
+            "label": "600 dpi"
+          },
+          {
+            "value": 1200,
+            "label": "1200 dpi"
+          }
+        ],
+        "order": 53
+      },
+      {
+        "id": "pngGround",
+        "node": "png",
+        "prop": "ground",
+        "label": "PNG ground",
+        "group": "Export",
+        "control": "select",
+        "options": [
+          {
+            "value": "transparent",
+            "label": "transparent"
+          },
+          {
+            "value": "white",
+            "label": "white"
+          },
+          {
+            "value": "black",
+            "label": "black"
+          }
+        ],
+        "order": 54
+      },
+      {
+        "id": "svgLayers",
+        "node": "plot-svg",
+        "prop": "layers",
+        "label": "SVG layers",
+        "group": "Export",
+        "control": "select",
+        "options": [
+          {
+            "value": "size",
+            "label": "1 small · 2 medium · 3 large"
+          },
+          {
+            "value": "single",
+            "label": "0 title (one layer)"
+          }
+        ],
+        "order": 55
+      }
+    ],
+    "outputs": [
+      {
+        "id": "png",
+        "node": "png",
+        "port": "image",
+        "label": "Save PNG",
+        "format": "png",
+        "filename": "{scene}-{id}.png",
+        "parameters": [
+          "dpi",
+          "pngGround"
+        ]
+      },
+      {
+        "id": "plot-svg",
+        "node": "plot-svg",
+        "port": "svg",
+        "label": "Save plot SVG (mm, pen paths)",
+        "format": "svg",
+        "filename": "{scene}-plot.svg",
+        "parameters": [
+          "svgLayers"
+        ]
+      },
+      {
+        "id": "preview-svg",
+        "node": "preview-svg",
+        "port": "svg",
+        "label": "Save preview SVG (filled)",
+        "format": "svg",
+        "filename": "{scene}-preview.svg",
+        "view": true
+      }
+    ],
+    "presets": [
+      {
+        "id": "co-approved",
+        "label": "CLOUD OBSERVATORY · approved",
+        "values": {
+          "source": 0,
+          "seed": 7,
+          "text": "CLOUD\nOBSERVATORY",
+          "capMm": 13.614,
+          "leading": 1.2146,
+          "tracking": -0.0097,
+          "width": 1,
+          "indents": "",
+          "align": "left",
+          "field": "radial",
+          "useStrength": true,
+          "strength": 0.1,
+          "centre": [
+            0.35,
+            0.5
+          ],
+          "angle": 20,
+          "sweep": 0.5,
+          "rhythm": 2,
+          "bokeh": "cateye",
+          "rim": 0.55,
+          "cat": 0.55,
+          "rings": 0.7,
+          "ringTone": -0.2,
+          "shrink": 1,
+          "ghost": 0,
+          "reticle": 0,
+          "scale": false,
+          "scaleLength": 0.55,
+          "blowAmount": 0.05,
+          "blowAngle": 32,
+          "blowDistance": 0.5,
+          "density": 1,
+          "dotSize": 0.55,
+          "growth": 0.5,
+          "order": 1,
+          "pageMode": "fit",
+          "margin": 5,
+          "pageSize": [
+            194,
+            256
+          ],
+          "textOrigin": [
+            38.791,
+            23.594
+          ],
+          "defocus": 0.408,
+          "fade": 0.435,
+          "dof": 0.183,
+          "span": 0.492,
+          "tone": 0.715
+        }
+      },
+      {
+        "id": "isolon-approved",
+        "label": "IN SEARCH OF A LONGER NOW · approved (1C)",
+        "values": {
+          "source": 0,
+          "seed": 7,
+          "text": "IN SEARCH\nOF A LONGER\nNOW",
+          "capMm": 13.564,
+          "leading": 1.2336,
+          "tracking": 0.0009,
+          "width": 1,
+          "indents": "2.2669, 0, 0",
+          "align": "left",
+          "field": "radial",
+          "useStrength": false,
+          "strength": 0,
+          "centre": [
+            0.3893,
+            0.4803
+          ],
+          "angle": 20,
+          "sweep": 0.5,
+          "rhythm": 2,
+          "bokeh": "cateye",
+          "rim": 0.55,
+          "cat": 0.55,
+          "rings": 0.7,
+          "ringTone": -0.2,
+          "shrink": 1,
+          "ghost": 0,
+          "reticle": 0.6,
+          "scale": true,
+          "scaleLength": 0.7136,
+          "blowAmount": 0.05,
+          "blowAngle": 32,
+          "blowDistance": 0.5,
+          "density": 1,
+          "dotSize": 0.55,
+          "growth": 0.5,
+          "order": 1,
+          "pageMode": "fit",
+          "margin": 5,
+          "pageSize": [
+            194,
+            256
+          ],
+          "textOrigin": [
+            7.845,
+            74.683
+          ],
+          "defocus": 0.42,
+          "fade": 0.45,
+          "dof": 0.2206,
+          "span": 0.6229,
+          "tone": 1.0
+        }
+      },
+      {
+        "id": "co-1c",
+        "label": "CLOUD OBSERVATORY · 1C",
+        "values": {
+          "source": 0,
+          "seed": 7,
+          "text": "CLOUD\nOBSERVATORY",
+          "capMm": 13.614,
+          "leading": 1.2146,
+          "tracking": -0.0097,
+          "width": 1,
+          "indents": "",
+          "align": "left",
+          "field": "radial",
+          "useStrength": true,
+          "strength": 0,
+          "centre": [
+            0.35,
+            0.5
+          ],
+          "angle": 20,
+          "sweep": 0.5,
+          "rhythm": 2,
+          "bokeh": "cateye",
+          "rim": 0.55,
+          "cat": 0.55,
+          "rings": 0.7,
+          "ringTone": -0.2,
+          "shrink": 1,
+          "ghost": 0,
+          "reticle": 0,
+          "scale": false,
+          "scaleLength": 0.55,
+          "blowAmount": 0.05,
+          "blowAngle": 32,
+          "blowDistance": 0.5,
+          "density": 1,
+          "dotSize": 0.55,
+          "growth": 0.5,
+          "order": 1,
+          "pageMode": "fit",
+          "margin": 5,
+          "pageSize": [
+            194,
+            256
+          ],
+          "textOrigin": [
+            38.791,
+            23.594
+          ],
+          "defocus": 0.42,
+          "fade": 0.45,
+          "dof": 0.17,
+          "span": 0.48,
+          "tone": 0.7
+        }
+      },
+      {
+        "id": "co-soft",
+        "label": "CLOUD OBSERVATORY · soft",
+        "values": {
+          "source": 0,
+          "seed": 7,
+          "text": "CLOUD\nOBSERVATORY",
+          "capMm": 13.614,
+          "leading": 1.2146,
+          "tracking": -0.0097,
+          "width": 1,
+          "indents": "",
+          "align": "left",
+          "field": "radial",
+          "useStrength": true,
+          "strength": 1,
+          "centre": [
+            0.35,
+            0.5
+          ],
+          "angle": 20,
+          "sweep": 0.5,
+          "rhythm": 2,
+          "bokeh": "cateye",
+          "rim": 0.55,
+          "cat": 0.55,
+          "rings": 0.7,
+          "ringTone": -0.2,
+          "shrink": 1,
+          "ghost": 0,
+          "reticle": 0,
+          "scale": false,
+          "scaleLength": 0.55,
+          "blowAmount": 0.05,
+          "blowAngle": 32,
+          "blowDistance": 0.5,
+          "density": 1,
+          "dotSize": 0.55,
+          "growth": 0.5,
+          "order": 1,
+          "pageMode": "fit",
+          "margin": 5,
+          "pageSize": [
+            194,
+            256
+          ],
+          "textOrigin": [
+            38.791,
+            23.594
+          ],
+          "defocus": 0.3,
+          "fade": 0.3,
+          "dof": 0.3,
+          "span": 0.6,
+          "tone": 0.85
+        }
+      }
+    ],
+    "assets": [
+      "assets/fonts/InterDisplay-Medium.otf",
+      "assets/fonts/Inter-OFL-LICENSE.txt"
+    ]
+  },
+  "annotations": [],
+  "nodes": [
+    {
+      "id": "spec",
+      "module": "project.spec",
+      "position": [
+        0,
+        0
+      ],
+      "source": "project",
+      "comment": "Spec: cap height, pitch, seed, pen. Out: spec bundle.",
+      "props": {
+        "capMm": 13.614,
+        "density": 1,
+        "pitchMm": 0,
+        "seed": 7,
+        "penMm": 0.1,
+        "quality": "full"
+      }
+    },
+    {
+      "id": "source",
+      "module": "cascade.core.Subnet",
+      "position": [
+        260,
+        0
+      ],
+      "source": "stdlib",
+      "comment": "Source: the headline set as outlines, or an image, to a mask. In: spec. Out: mask."
+    },
+    {
+      "id": "source-in-spec",
+      "module": "cascade.core.Input",
+      "position": [
+        0,
+        0
+      ],
+      "source": "stdlib",
+      "parent": "source",
+      "props": {
+        "inputIndex": 0,
+        "inputName": "spec",
+        "dataType": "bundle"
+      }
+    },
+    {
+      "id": "type-set",
+      "module": "project.type-set",
+      "position": [
+        220,
+        -80
+      ],
+      "source": "project",
+      "parent": "source",
+      "props": {
+        "text": "CLOUD\nOBSERVATORY",
+        "font": {
+          "path": "assets/fonts/InterDisplay-Medium.otf",
+          "mediaType": "font/otf"
+        },
+        "leading": 1.2146,
+        "tracking": -0.0097,
+        "width": 1,
+        "align": "left",
+        "indents": ""
+      }
+    },
+    {
+      "id": "outline-mask",
+      "module": "project.outline-mask",
+      "position": [
+        460,
+        -80
+      ],
+      "source": "project",
+      "parent": "source"
+    },
+    {
+      "id": "image-mask",
+      "module": "project.image-mask",
+      "position": [
+        220,
+        120
+      ],
+      "source": "project",
+      "parent": "source",
+      "props": {
+        "image": {
+          "path": ""
+        },
+        "mode": "threshold",
+        "threshold": 0.5,
+        "floor": 0.15,
+        "invert": false,
+        "heightMm": 40
+      }
+    },
+    {
+      "id": "source-switch",
+      "module": "cascade.core.Switch",
+      "position": [
+        700,
+        0
+      ],
+      "source": "stdlib",
+      "parent": "source",
+      "props": {
+        "index": 0
+      }
+    },
+    {
+      "id": "source-out-mask",
+      "module": "cascade.core.Output",
+      "position": [
+        920,
+        0
+      ],
+      "source": "stdlib",
+      "parent": "source",
+      "props": {
+        "outputIndex": 0,
+        "outputName": "mask",
+        "dataType": "cloudtype.mask"
+      }
+    },
+    {
+      "id": "stipple",
+      "module": "project.stipple",
+      "position": [
+        520,
+        0
+      ],
+      "source": "project",
+      "comment": "Stipple: contour row + Lloyd interior. Out: points (t, comp).",
+      "props": {
+        "order": 1
+      }
+    },
+    {
+      "id": "look",
+      "module": "project.look",
+      "position": [
+        520,
+        180
+      ],
+      "source": "project",
+      "comment": "Look: 1C to soft strength, or by hand. Out: look bundle.",
+      "props": {
+        "useStrength": true,
+        "strength": 0.1,
+        "defocus": 0.408,
+        "fade": 0.435,
+        "dof": 0.183,
+        "span": 0.492,
+        "tone": 0.715
+      }
+    },
+    {
+      "id": "focus",
+      "module": "project.focus",
+      "position": [
+        780,
+        0
+      ],
+      "source": "project",
+      "comment": "Focus: lens, bokeh, rings, ghost, reticle. Out: points.",
+      "props": {
+        "field": "radial",
+        "centre": [
+          0.35,
+          0.5
+        ],
+        "angle": 20,
+        "sweep": 0.5,
+        "rhythm": 2,
+        "bokeh": "cateye",
+        "rim": 0.55,
+        "cat": 0.55,
+        "rings": 0.7,
+        "ringTone": -0.2,
+        "shrink": 1,
+        "ghost": 0,
+        "reticle": 0,
+        "scale": false,
+        "scaleLength": 0.55
+      }
+    },
+    {
+      "id": "finish",
+      "module": "cascade.core.Subnet",
+      "position": [
+        1040,
+        0
+      ],
+      "source": "stdlib",
+      "comment": "Finish: dot scale, blown dots, pen sizes, thinning. In: points, spec, look. Out: points (size mm)."
+    },
+    {
+      "id": "finish-in-points",
+      "module": "cascade.core.Input",
+      "position": [
+        0,
+        0
+      ],
+      "source": "stdlib",
+      "parent": "finish",
+      "props": {
+        "inputIndex": 0,
+        "inputName": "points",
+        "dataType": "geometry"
+      }
+    },
+    {
+      "id": "finish-in-spec",
+      "module": "cascade.core.Input",
+      "position": [
+        0,
+        140
+      ],
+      "source": "stdlib",
+      "parent": "finish",
+      "props": {
+        "inputIndex": 1,
+        "inputName": "spec",
+        "dataType": "bundle"
+      }
+    },
+    {
+      "id": "finish-in-look",
+      "module": "cascade.core.Input",
+      "position": [
+        0,
+        280
+      ],
+      "source": "stdlib",
+      "parent": "finish",
+      "props": {
+        "inputIndex": 2,
+        "inputName": "look",
+        "dataType": "bundle"
+      }
+    },
+    {
+      "id": "dot-scale",
+      "module": "project.dot-scale",
+      "position": [
+        220,
+        0
+      ],
+      "source": "project",
+      "parent": "finish",
+      "props": {
+        "growth": 0.5
+      }
+    },
+    {
+      "id": "blow",
+      "module": "project.blow",
+      "position": [
+        440,
+        0
+      ],
+      "source": "project",
+      "parent": "finish",
+      "props": {
+        "amount": 0.05,
+        "angle": 32,
+        "distance": 0.5
+      }
+    },
+    {
+      "id": "pen-sizes",
+      "module": "project.pen-sizes",
+      "position": [
+        660,
+        0
+      ],
+      "source": "project",
+      "parent": "finish",
+      "props": {
+        "dotSize": 0.55
+      }
+    },
+    {
+      "id": "thin",
+      "module": "project.thin",
+      "position": [
+        880,
+        0
+      ],
+      "source": "project",
+      "parent": "finish",
+      "props": {
+        "minSpacingMm": 0
+      }
+    },
+    {
+      "id": "finish-out-points",
+      "module": "cascade.core.Output",
+      "position": [
+        1100,
+        0
+      ],
+      "source": "stdlib",
+      "parent": "finish",
+      "props": {
+        "outputIndex": 0,
+        "outputName": "points",
+        "dataType": "geometry"
+      }
+    },
+    {
+      "id": "page",
+      "module": "project.page",
+      "position": [
+        1300,
+        0
+      ],
+      "source": "project",
+      "comment": "Page: fit with a margin, or a custom page. Out: points in page mm, detail pageMm.",
+      "props": {
+        "mode": "fit",
+        "marginMm": 5,
+        "pageSize": [
+          194,
+          256
+        ],
+        "textOrigin": [
+          38.791,
+          23.594
+        ]
+      }
+    },
+    {
+      "id": "style",
+      "module": "project.style",
+      "position": [
+        1300,
+        180
+      ],
+      "source": "project",
+      "comment": "Style: dot colour and ground for preview and PNG.",
+      "props": {
+        "colour": [
+          0.0941,
+          0.0941,
+          0.0941,
+          1
+        ],
+        "ground": "white"
+      }
+    },
+    {
+      "id": "plot-svg",
+      "module": "project.plot-svg",
+      "position": [
+        1560,
+        -140
+      ],
+      "source": "project",
+      "props": {
+        "layers": "size"
+      }
+    },
+    {
+      "id": "preview-svg",
+      "module": "project.preview-svg",
+      "position": [
+        1560,
+        0
+      ],
+      "source": "project"
+    },
+    {
+      "id": "png",
+      "module": "project.png",
+      "position": [
+        1560,
+        160
+      ],
+      "source": "project",
+      "props": {
+        "dpi": 600,
+        "ground": "transparent"
+      }
+    }
+  ],
+  "connections": [
+    [
+      [
+        "spec",
+        0,
+        "spec"
+      ],
+      [
+        "source",
+        0,
+        "input_0"
+      ]
+    ],
+    [
+      [
+        "source-in-spec",
+        0,
+        "output"
+      ],
+      [
+        "type-set",
+        0,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "source-in-spec",
+        0,
+        "output"
+      ],
+      [
+        "outline-mask",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "source-in-spec",
+        0,
+        "output"
+      ],
+      [
+        "image-mask",
+        0,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "type-set",
+        0,
+        "geometry"
+      ],
+      [
+        "outline-mask",
+        0,
+        "geometry"
+      ]
+    ],
+    [
+      [
+        "outline-mask",
+        0,
+        "mask"
+      ],
+      [
+        "source-switch",
+        0,
+        "input_0"
+      ]
+    ],
+    [
+      [
+        "image-mask",
+        0,
+        "mask"
+      ],
+      [
+        "source-switch",
+        1,
+        "input_1"
+      ]
+    ],
+    [
+      [
+        "source-switch",
+        0,
+        "output"
+      ],
+      [
+        "source-out-mask",
+        0,
+        "input"
+      ]
+    ],
+    [
+      [
+        "source",
+        0,
+        "output_0"
+      ],
+      [
+        "stipple",
+        0,
+        "mask"
+      ]
+    ],
+    [
+      [
+        "spec",
+        0,
+        "spec"
+      ],
+      [
+        "stipple",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "stipple",
+        0,
+        "points"
+      ],
+      [
+        "focus",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "spec",
+        0,
+        "spec"
+      ],
+      [
+        "focus",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "look",
+        0,
+        "look"
+      ],
+      [
+        "focus",
+        2,
+        "look"
+      ]
+    ],
+    [
+      [
+        "focus",
+        0,
+        "points"
+      ],
+      [
+        "finish",
+        0,
+        "input_0"
+      ]
+    ],
+    [
+      [
+        "spec",
+        0,
+        "spec"
+      ],
+      [
+        "finish",
+        1,
+        "input_1"
+      ]
+    ],
+    [
+      [
+        "look",
+        0,
+        "look"
+      ],
+      [
+        "finish",
+        2,
+        "input_2"
+      ]
+    ],
+    [
+      [
+        "finish-in-points",
+        0,
+        "output"
+      ],
+      [
+        "dot-scale",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "finish-in-look",
+        0,
+        "output"
+      ],
+      [
+        "dot-scale",
+        1,
+        "look"
+      ]
+    ],
+    [
+      [
+        "dot-scale",
+        0,
+        "points"
+      ],
+      [
+        "blow",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "finish-in-spec",
+        0,
+        "output"
+      ],
+      [
+        "blow",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "blow",
+        0,
+        "points"
+      ],
+      [
+        "pen-sizes",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "finish-in-spec",
+        0,
+        "output"
+      ],
+      [
+        "pen-sizes",
+        1,
+        "spec"
+      ]
+    ],
+    [
+      [
+        "pen-sizes",
+        0,
+        "points"
+      ],
+      [
+        "thin",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "thin",
+        0,
+        "points"
+      ],
+      [
+        "finish-out-points",
+        0,
+        "input"
+      ]
+    ],
+    [
+      [
+        "finish",
+        0,
+        "output_0"
+      ],
+      [
+        "page",
+        0,
+        "points"
+      ]
+    ],
+    [
+      [
+        "page",
+        0,
+        "points"
+      ],
+      [
+        "plot-svg",
+        0,
+        "page"
+      ]
+    ],
+    [
+      [
+        "page",
+        0,
+        "points"
+      ],
+      [
+        "preview-svg",
+        0,
+        "page"
+      ]
+    ],
+    [
+      [
+        "page",
+        0,
+        "points"
+      ],
+      [
+        "png",
+        0,
+        "page"
+      ]
+    ],
+    [
+      [
+        "style",
+        0,
+        "style"
+      ],
+      [
+        "preview-svg",
+        1,
+        "style"
+      ]
+    ],
+    [
+      [
+        "style",
+        0,
+        "style"
+      ],
+      [
+        "png",
+        1,
+        "style"
+      ]
+    ]
+  ]
+}
