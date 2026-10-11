@@ -1,0 +1,12 @@
+Copyright (c) 2026 FIELD.IO. All rights reserved.
+
+FIELD internal use. This repository, including the vendored Cascade package in
+vendor/, is proprietary and may not be shared outside FIELD.
+
+Third-party components keep their own licences:
+- Inter Display (assets/fonts/InterDisplay-Medium.otf): SIL Open Font License 1.1,
+  see assets/fonts/Inter-OFL-LICENSE.txt.
+- npm dependencies: see each package in node_modules.
+
+Licensed fonts (for example Helvetica Now Display, licensed to FIELD for two
+desktop users) are never part of this repository.

@@ -8,6 +8,12 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "dev": "cascade cloud-type.cascade",
+    "studio": "cascade cloud-type.cascade",
+    "export": "cascade export cloud-type.cascade --out export/site",
+    "export:plan": "cascade export cloud-type.cascade --plan",
+    "check:share": "sh scripts/check-share.sh",
+    "vendor:cascade": "sh scripts/vendor-cascade.sh",
     "test": "npm run check && npm run check:graph && npm run validate && npm run run && npm run test:grounds",
     "check": "tsc --noEmit && tsc --noEmit -p scripts",
     "check:graph": "cascade check cloud-type.cascade",
@@ -21,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
-    "cascade": "file:../../Dev/cascade",
+    "cascade": "file:vendor/field-cascade-0.9.1.tgz",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   }

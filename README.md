@@ -1,6 +1,86 @@
 # Cloud Type (Cascade)
 
-Dotted cloud type as a Cascade graph: a headline (or an image) to plotter dots, with the Human First book's focus and blown dots. A port of the standalone app at `~/Documents/Dev/cloud-type`, itself a port of cloud-plots' `titletype` / `titlepage`. The generator's maths is unchanged, so the graph's dots are identical to the app's.
+Dotted cloud type for the Human First book: a headline (or an image) becomes plotter dots, with the book's focus falloff and blown dots. It is a [Cascade](vendor/) project: the whole generator is one node graph, `cloud-type.cascade`, which runs in Cascade Studio, under the `cascade` CLI and as a shareable browser editor (https://cloud-type.vercel.app, FIELD Vercel login).
+
+FIELD internal use. See `LICENSE`.
+
+## Setup
+
+Needs Node 22.13 or newer.
+
+```sh
+git clone git@github.com:field/cloud-type.git
+cd cloud-type
+npm install
+npm test        # type check, graph check, validate, one run
+```
+
+Cascade is not on npm: it is vendored as `vendor/field-cascade-0.9.1.tgz` and installed from there (`"cascade": "file:vendor/…"` in `package.json`). Nothing else is needed. To move to a newer Cascade, someone with the Cascade source runs `npm run vendor:cascade -- <path to cascade checkout>` and commits the new tarball.
+
+## Run Studio
+
+```sh
+npm run dev                         # Studio on the graph, opens a browser
+npm run dev -- --port 4100 --no-open
+```
+
+Studio shows the graph left to right. Select a node to edit its props in the Inspector; outputs re-cook as you change them. The viewer shows the selected output (the filled preview SVG is the one to look at).
+
+## Edit and publish parameters
+
+The `editor` section of `cloud-type.cascade` decides what the browser editor shows: the published parameters, their groups, the presets, the outputs and the assets.
+
+- **In Studio:** the `share` toggle beside a prop in the Inspector publishes it, with label, group and range fields. Save the graph.
+- **On the command line:** `npx cascade publish cloud-type.cascade spec.capMm --label "Cap height" --group Input --min 3 --max 60 --unit mm`
+- **Presets, outputs, help text and `visibleWhen`** are edited in the JSON (`editor.presets`, `editor.outputs`).
+
+Changing a default in Studio changes what the editor opens with. Rewiring the graph or renaming a published parameter changes the graph version, so older scene files open with a warning (values still apply where they match).
+
+## Export the editor
+
+```sh
+npm run export:plan        # what would ship: nodes, parameters, assets
+npm run export             # writes the static editor to export/site/
+npx serve export/site      # or any static server, to try it locally
+```
+
+`export/` is gitignored. The export refuses to ship licensed fonts, local paths and secrets.
+
+To redeploy https://cloud-type.vercel.app (Vercel team field-io, Vercel Authentication stays on):
+
+```sh
+npx cascade export cloud-type.cascade --out export/site --deploy vercel --project cloud-type --scope field-io
+```
+
+## Scene files
+
+A scene (`*.scene.json`) holds the values of the published parameters, nothing else. `scenes/` has the two book headlines:
+
+| File | What |
+| --- | --- |
+| `scenes/cloud-observatory-final.scene.json` | CLOUD OBSERVATORY, final (the approved title) |
+| `scenes/cloud-observatory-1c-halfway.scene.json` | CLOUD OBSERVATORY, 1C-halfway |
+| `scenes/in-search-of-a-longer-now-1c.scene.json` | IN SEARCH OF A LONGER NOW, exactly 1C |
+
+- **Browser editor:** "Save scene" downloads one, "Open scene…" (or drop the file on the viewer) loads one.
+- **Studio:** File › Open Scene… applies a scene as an unsaved edit; File › Save Scene… writes one.
+- **CLI:** `npx cascade scene cloud-type.cascade scenes/x.scene.json --out x.cascade` writes a copy of the graph with the scene applied.
+
+Fonts and images in a scene are matched by name and hash. A file up to 2 MB is embedded; a licensed font never should be, so put it on your machine (see Fonts) and the scene finds it by name.
+
+## Render a headline to PNG or SVG
+
+```sh
+# plotter SVG (mm, pen paths in layers 1/2/3 by dot size) and a PNG
+npx cascade run cloud-type.cascade --scene scenes/in-search-of-a-longer-now-1c.scene.json \
+  --write plot-svg.svg=out/longer-now-plot.svg --write png.image=out/longer-now.png
+
+# filled preview SVG
+npx cascade run cloud-type.cascade --scene scenes/cloud-observatory-final.scene.json \
+  --write preview-svg.svg=out/cloud-observatory-preview.svg
+```
+
+For a new headline: open a scene in the editor or Studio, change `text` (and cap height, indents, focus centre), save the scene, then run the line above with it. `plot-svg` is the file for the plotter; `png` takes `dpi` (150-1200) and `pngGround` from the scene.
 
 ## Graph
 
@@ -19,30 +99,22 @@ Dotted cloud type as a Cascade graph: a headline (or an image) to plotter dots, 
 
 Geometry on the wires is +Y up (Cascade's convention); the generator works y-down and `lib/cloudtype/geo.ts` flips at the boundary. The graph's defaults are the approved CLOUD OBSERVATORY, `final` (cloud-plots 152a124: 30% from 1C toward soft, radial at 0.35, 0.5). 1C-halfway is kept as a preset.
 
+Presets (in the editor's preset menu): `co-approved` is **final**, the approved CLOUD OBSERVATORY (30% of the way from 1C toward soft); `co-halfway` is 1C-halfway; `isolon-approved` is IN SEARCH OF A LONGER NOW, exactly 1C; `co-1c` and `co-soft` are the two ends.
+
 The `editor` section publishes every control of the standalone app (groups Input, Focus, Blown dots, Dots, Colour and page, Export), its four presets, the three outputs and the shippable assets.
 
 ## Fonts
 
-Inter Display Medium (SIL Open Font License, `assets/fonts/Inter-OFL-LICENSE.txt`) is the default and the only font in this repo. The book is set in Helvetica Now Display Medium, licensed to FIELD for two desktop seats: it is never copied, committed, bundled or exported. Every `licensed/` directory is gitignored. Drop the licensed OTF into the `font` parameter on a licensed machine; parity reads it in place from cloud-plots.
+Only Inter Display Medium ships (SIL Open Font License, `assets/fonts/Inter-OFL-LICENSE.txt`). It is the default.
 
-## Commands
+The book is set in **Helvetica Now Display Medium, licensed to FIELD for two desktop users.** It is never committed, bundled or exported. To match the book on a licensed machine, drop your licensed OTF into the `font` parameter (Studio Inspector or the browser editor), or keep it in `assets/fonts/licensed/`, which is gitignored and where scene files look for it by name. Every `licensed/` directory is gitignored, and `npm run check:share` fails if a font other than Inter is tracked.
 
-```sh
-npm install
-npm test               # tsc, cascade check, cascade validate, cascade run
-npx --no-install cascade run cloud-type.cascade --frames 1    # renders/png.0001.png
-./scripts/parity.sh    # graph vs standalone vs cloud-plots, into export/parity/
-```
-
-`scripts/parity-dots.ts <preset> <out.json> [font.otf]` runs the graph through Cascade's runtime with a preset from the editor section and writes the page dots in the standalone's `scripts/dots.ts` shape; `scripts/compare-dots.ts a.json b.json` compares two such files. `parity.sh` needs the standalone checkout, the cloud-plots venv and the licensed font where cloud-plots keeps it.
-
-## Share it
-
-The graph's `editor` section is what the shared editor shows. To rebuild and redeploy https://cloud-type.vercel.app (Vercel Authentication on, team field-io):
+## Before you push
 
 ```sh
-cascade export cloud-type.cascade --plan     # review what ships
-cascade export cloud-type.cascade --out export/site --deploy vercel --project cloud-type --scope field-io
+npm run check:share   # fails on .env files, tokens, Turso/libsql URLs, local paths, licensed fonts
 ```
 
-Scenes saved in the editor (`*.scene.json`) open in Studio with File › Open Scene, or headlessly with `cascade run cloud-type.cascade --scene <file> --write png.image=out.png`.
+## Maintainer notes
+
+`scripts/parity-dots.ts <preset> <out.json> [font.otf]` runs the graph with an editor preset and writes the page dots; `scripts/compare-dots.ts a.json b.json` compares two such files. `scripts/parity.sh` compares the graph with the archived standalone app and cloud-plots; it needs `STANDALONE`, `PY` and `HELVETICA` set and is only useful on Marcus's machine.

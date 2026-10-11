@@ -1,0 +1,64 @@
+{
+  "format": "cascade.scene",
+  "version": 1,
+  "graph": {
+    "id": "cloud-type",
+    "version": "h77d97e88f213c05d"
+  },
+  "name": "CLOUD OBSERVATORY, 1C-halfway",
+  "values": {
+    "source": 0,
+    "seed": 7,
+    "text": "CLOUD\nOBSERVATORY",
+    "capMm": 13.614,
+    "leading": 1.2146,
+    "tracking": -0.0097,
+    "width": 1,
+    "indents": "",
+    "align": "left",
+    "field": "radial",
+    "useStrength": false,
+    "strength": 0.5,
+    "centre": [
+      0.35,
+      0.5
+    ],
+    "angle": 20,
+    "sweep": 0.5,
+    "rhythm": 2,
+    "bokeh": "cateye",
+    "rim": 0.55,
+    "cat": 0.55,
+    "rings": 0.7,
+    "ringTone": -0.2,
+    "shrink": 1,
+    "ghost": 0,
+    "reticle": 0,
+    "scale": false,
+    "scaleLength": 0.55,
+    "blowAmount": 0.05,
+    "blowAngle": 32,
+    "blowDistance": 0.5,
+    "density": 1,
+    "dotSize": 0.55,
+    "growth": 0.5,
+    "order": 1,
+    "pageMode": "fit",
+    "margin": 5,
+    "pageSize": [
+      194,
+      256
+    ],
+    "textOrigin": [
+      38.791,
+      23.594
+    ],
+    "defocus": 0.36,
+    "fade": 0.375,
+    "dof": 0.5,
+    "span": 0.54,
+    "tone": 0.775
+  },
+  "files": {},
+  "savedAt": "2026-10-11T22:00:00Z"
+}

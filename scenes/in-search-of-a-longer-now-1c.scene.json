@@ -1,0 +1,64 @@
+{
+  "format": "cascade.scene",
+  "version": 1,
+  "graph": {
+    "id": "cloud-type",
+    "version": "h77d97e88f213c05d"
+  },
+  "name": "IN SEARCH OF A LONGER NOW, approved (1C)",
+  "values": {
+    "source": 0,
+    "seed": 7,
+    "text": "IN SEARCH\nOF A LONGER\nNOW",
+    "capMm": 13.564,
+    "leading": 1.2336,
+    "tracking": 0.0009,
+    "width": 1,
+    "indents": "2.2669, 0, 0",
+    "align": "left",
+    "field": "radial",
+    "useStrength": false,
+    "strength": 0,
+    "centre": [
+      0.3893,
+      0.4803
+    ],
+    "angle": 20,
+    "sweep": 0.5,
+    "rhythm": 2,
+    "bokeh": "cateye",
+    "rim": 0.55,
+    "cat": 0.55,
+    "rings": 0.7,
+    "ringTone": -0.2,
+    "shrink": 1,
+    "ghost": 0,
+    "reticle": 0.6,
+    "scale": true,
+    "scaleLength": 0.7136,
+    "blowAmount": 0.05,
+    "blowAngle": 32,
+    "blowDistance": 0.5,
+    "density": 1,
+    "dotSize": 0.55,
+    "growth": 0.5,
+    "order": 1,
+    "pageMode": "fit",
+    "margin": 5,
+    "pageSize": [
+      194,
+      256
+    ],
+    "textOrigin": [
+      7.845,
+      74.683
+    ],
+    "defocus": 0.42,
+    "fade": 0.45,
+    "dof": 0.2206,
+    "span": 0.6229,
+    "tone": 1.0
+  },
+  "files": {},
+  "savedAt": "2026-10-11T22:00:00Z"
+}

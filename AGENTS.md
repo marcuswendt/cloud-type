@@ -2,16 +2,16 @@
 
 ## This project
 
-Cloud Type: dotted cloud type after cloud-plots' titletype, ported from the standalone app at `~/Documents/Dev/cloud-type`. Read `README.md` for the graph. The rules that matter here:
+Cloud Type: dotted cloud type after cloud-plots' titletype, ported from the archived standalone app (marcuswendt/cloud-type). Read `README.md` for the graph. The rules that matter here:
 
 - **The graph is `cloud-type.cascade`.** Every node is definition-v1 and `runsOn: 'portable'`: it must cook in the browser and under `cascade run`. Never make one browser- or server-only.
 - **Algorithms live in `lib/cloudtype/`**, nodes in `nodes/` are thin adapters. Nodes never import each other. Keep the maths in `lib/` identical to the standalone's `src/lib/cloudtype/`: `npm run parity` must stay identical to it.
 - **Wires are geometry in mm, +Y up.** `lib/cloudtype/geo.ts` negates y at the boundary (exact in float64); the generator works y-down inside. Bundles: `spec` (capMm, pitchMm, seed, penMm, quality), `look` (defocus, fade, dof, span, tone), `style` (colour, ground). The mask is the project type `cloudtype.mask`.
 - **The `editor` section** of the graph publishes the parameters, outputs, presets and assets of the shareable editor. A published parameter is a plain prop; rename a prop and you must update its `node`/`prop` there.
-- **Licensed fonts never enter this repo.** Helvetica Now Display (FIELD: 2 desktop seats) is read in place from `~/Documents/Cascade/cloud-plots/assets/fonts/licensed/` for parity only; every `licensed/` directory is gitignored and an export refuses it. Inter Display (OFL) is the default and the only font that ships.
+- **Licensed fonts never enter this repo.** Helvetica Now Display (FIELD: 2 desktop seats) is read in place from wherever the licensed machine keeps it, for parity only; every `licensed/` directory is gitignored and an export refuses it. Inter Display (OFL) is the default and the only font that ships.
 - **opentype.js is this project's dependency**, not Cascade core's.
 
-Read `node_modules/cascade/AGENTS.md` for the framework itself. What follows is what an agent working in *this* project needs.
+Cascade is vendored as `vendor/field-cascade-*.tgz` (refresh with `npm run vendor:cascade -- <cascade checkout>`). Read `node_modules/cascade/AGENTS.md` for the framework itself. What follows is what an agent working in *this* project needs.
 
 ## Read this first
 

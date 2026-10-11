@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Parity matrix: the Cascade graph against the standalone app (~/Documents/Dev/cloud-type)
+# Parity matrix: the Cascade graph against the archived standalone app (marcuswendt/cloud-type)
 # and against cloud-plots (Python), for co-approved and co-1c, in Inter and in the
 # licensed Helvetica Now Display (read in place, never copied). Writes to export/parity/.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-STANDALONE=${STANDALONE:-$HOME/Documents/Dev/cloud-type}
-PY=${PY:-$HOME/Documents/Cascade/cloud-plots/.venv/bin/python3}
-HELVETICA=${HELVETICA:-$HOME/Documents/Cascade/cloud-plots/assets/fonts/licensed/HelveticaNowDisplay-Md.otf}
+STANDALONE=${STANDALONE:?set STANDALONE to a checkout of the archived standalone app}
+PY=${PY:?set PY to the cloud-plots venv python}
+HELVETICA=${HELVETICA:?set HELVETICA to your licensed HelveticaNowDisplay-Md.otf, read in place}
 INTER=$PWD/assets/fonts/InterDisplay-Medium.otf
 OUT=$PWD/export/parity
 mkdir -p "$OUT"
