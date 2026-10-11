@@ -71,6 +71,8 @@ Fonts and images in a scene are matched by name and hash. A file up to 2 MB is e
 ## Render a headline to PNG or SVG
 
 ```sh
+mkdir -p out   # out/ is gitignored; --write does not create folders
+
 # plotter SVG (mm, pen paths in layers 1/2/3 by dot size) and a PNG
 npx cascade run cloud-type.cascade --scene scenes/in-search-of-a-longer-now-1c.scene.json \
   --write plot-svg.svg=out/longer-now-plot.svg --write png.image=out/longer-now.png
