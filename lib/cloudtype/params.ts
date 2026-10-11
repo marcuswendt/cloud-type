@@ -2,7 +2,8 @@
 // params.ts so the graph and the app compute the same dots.
 
 /** The approved CLOUD OBSERVATORY step between 1C (0) and soft (1): titlepage.GENTLE_T on cloud-plots main. */
-export const APPROVED_T = 0.1;
+// cloud-plots 152a124, titlepage CO_STRENGTHS["final"] = between(0.3) (the 16:02 render).
+export const APPROVED_T = 0.3;
 
 /** 1C's own values and soft's, for CLOUD OBSERVATORY's zone (titlepage.CO_STRENGTHS / between). */
 export const C1 = { defocus: 0.42, fade: 0.45, dof: 0.17, span: 0.48, tone: 0.7 };

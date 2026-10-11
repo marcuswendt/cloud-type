@@ -362,7 +362,7 @@
             "equals": true
           }
         ],
-        "help": "0 = 1C, 1 = soft; the approved CLOUD OBSERVATORY is 0.1. Sets defocus, fade, sharp zone, falloff and dot tone together.",
+        "help": "0 = 1C, 1 = soft; the approved CLOUD OBSERVATORY is 0.3. Sets defocus, fade, sharp zone, falloff and dot tone together.",
         "order": 18
       },
       {
@@ -998,7 +998,7 @@
     "presets": [
       {
         "id": "co-approved",
-        "label": "CLOUD OBSERVATORY \u00b7 approved",
+        "label": "CLOUD OBSERVATORY \u00b7 approved (final, 30% toward soft)",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1011,7 +1011,7 @@
           "align": "left",
           "field": "radial",
           "useStrength": true,
-          "strength": 0.1,
+          "strength": 0.3,
           "centre": [
             0.35,
             0.5
@@ -1046,11 +1046,11 @@
             38.791,
             23.594
           ],
-          "defocus": 0.408,
-          "fade": 0.435,
-          "dof": 0.183,
-          "span": 0.492,
-          "tone": 0.715
+          "defocus": 0.384,
+          "fade": 0.405,
+          "dof": 0.209,
+          "span": 0.516,
+          "tone": 0.745
         },
         "keep": [
           "colour",
@@ -1493,12 +1493,12 @@
       "comment": "Look: 1C to soft strength, or by hand. Out: look bundle.",
       "props": {
         "useStrength": true,
-        "strength": 0.1,
-        "defocus": 0.408,
-        "fade": 0.435,
-        "dof": 0.183,
-        "span": 0.492,
-        "tone": 0.715
+        "strength": 0.3,
+        "defocus": 0.384,
+        "fade": 0.405,
+        "dof": 0.209,
+        "span": 0.516,
+        "tone": 0.745
       }
     },
     {

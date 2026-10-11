@@ -17,7 +17,7 @@ Dotted cloud type as a Cascade graph: a headline (or an image) to plotter dots, 
 | Page | `page` | points in page mm, detail `pageMm` (fit with a margin, or a custom page and text origin) |
 | Outputs | `plot-svg`, `preview-svg`, `png`, fed colour and ground by `style` | plotter SVG (layers 1/2/3 by size or one 0 title), filled preview SVG (the viewer), PNG at 150-1200 dpi |
 
-Geometry on the wires is +Y up (Cascade's convention); the generator works y-down and `lib/cloudtype/geo.ts` flips at the boundary. The graph's defaults are the approved CLOUD OBSERVATORY (`APPROVED_T` = 0.1).
+Geometry on the wires is +Y up (Cascade's convention); the generator works y-down and `lib/cloudtype/geo.ts` flips at the boundary. The graph's defaults are the approved CLOUD OBSERVATORY, `final` (cloud-plots 152a124: 30% from 1C toward soft, radial at 0.35, 0.5). 1C-halfway is kept as a preset.
 
 The `editor` section publishes every control of the standalone app (groups Input, Focus, Blown dots, Dots, Colour and page, Export), its four presets, the three outputs and the shippable assets.
 

@@ -1,6 +1,6 @@
 // look: how far from 1C the focus sits. With "use strength" on, the five values
 // come from titlepage.between(strength), 0 = 1C, 1 = soft (the approved CLOUD
-// OBSERVATORY is 0.1); off, they are set by hand.
+// OBSERVATORY is 0.3); off, they are set by hand.
 import type { NodeDefinition, NodeExecutionContext } from 'cascade/contracts';
 import { between } from '../../lib/cloudtype/params';
 
@@ -12,7 +12,7 @@ export const definition = {
   runsOn: 'portable',
   props: {
     useStrength: { type: 'bool', default: true, label: 'Use strength' },
-    strength: { type: 'float', default: 0.1, min: 0, max: 1, step: 0.01, label: 'Strength 1C→soft' },
+    strength: { type: 'float', default: 0.3, min: 0, max: 1, step: 0.01, label: 'Strength 1C→soft' },
     defocus: { type: 'float', default: 0.408, min: 0, max: 1.2, step: 0.001, label: 'Defocus', description: 'caps' },
     fade: { type: 'float', default: 0.435, min: 0, max: 1, step: 0.001, label: 'Fade' },
     dof: { type: 'float', default: 0.183, min: 0, max: 1, step: 0.001, label: 'Sharp zone', description: "dof: share of the text's width kept sharp" },
