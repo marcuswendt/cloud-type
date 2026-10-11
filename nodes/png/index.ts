@@ -4,7 +4,7 @@ import type { NodeDefinition, NodeExecutionContext } from 'cascade/contracts';
 import { Color } from 'cascade/contracts';
 import { cachePath, saveImage } from 'cascade/io';
 import { pageDots } from '../../lib/cloudtype/page';
-import { drawDots } from '../../lib/cloudtype/raster';
+import { dotColourFor, drawDots } from '../../lib/cloudtype/raster';
 
 export const definition = {
   apiVersion: 1,
@@ -35,7 +35,7 @@ export async function execute(context: NodeExecutionContext<typeof definition>) 
   const h = Math.max(1, Math.round(r.pageMm[1] * ppm));
   if (w * h > 260e6 || w > 32000 || h > 32000) throw new Error(`${w} x ${h} px is too large; lower the dpi`);
   const canvas = new OffscreenCanvas(w, h);
-  drawDots(canvas.getContext('2d') as OffscreenCanvasRenderingContext2D, w, h, r, ppm, colour, ground);
+  drawDots(canvas.getContext('2d') as OffscreenCanvasRenderingContext2D, w, h, r, ppm, dotColourFor(colour, ground), ground);
   const path = await saveImage(canvas, cachePath(context.nodeId, '.png'));
   context.outputs.image.set({ path, size: [w, h], channels: 'rgba', depth: 'u8', space: 'srgb' });
 }

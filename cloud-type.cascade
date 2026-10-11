@@ -794,7 +794,8 @@
         "label": "Dots",
         "group": "Colour and page",
         "control": "color",
-        "order": 47
+        "order": 47,
+        "help": "The default ink (#181818) follows the ground: dark on white or transparent, light on black. Any other colour is kept as chosen."
       },
       {
         "id": "ground",

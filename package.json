@@ -8,12 +8,13 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "test": "npm run check && npm run check:graph && npm run validate && npm run run",
+    "test": "npm run check && npm run check:graph && npm run validate && npm run run && npm run test:grounds",
     "check": "tsc --noEmit && tsc --noEmit -p scripts",
     "check:graph": "cascade check cloud-type.cascade",
     "validate": "cascade validate cloud-type.cascade",
     "run": "cascade run cloud-type.cascade",
-    "parity": "tsx scripts/parity-dots.ts"
+    "parity": "tsx scripts/parity-dots.ts",
+    "test:grounds": "tsx scripts/test-grounds.ts"
   },
   "dependencies": {
     "opentype.js": "^2.0.0"

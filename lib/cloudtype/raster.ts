@@ -5,6 +5,22 @@ import type { PageDots } from './page';
 
 export type Ground = 'white' | 'black' | 'transparent';
 
+/** The two automatic dot colours: dark ink, and the light ink it swaps to on black. */
+export const DARK_DOTS = '#181818';
+export const LIGHT_DOTS = '#ededed';
+
+/**
+ * The dot colour for a ground. The default ink follows the ground (dark on
+ * white or transparent, light on black), as the standalone app's setGround did;
+ * any other colour was chosen on purpose and is kept. Without this a black
+ * export is black dots on black.
+ */
+export function dotColourFor(colour: string, ground: Ground): string {
+  const c = colour.toLowerCase();
+  if (c !== DARK_DOTS && c !== LIGHT_DOTS) return colour;
+  return ground === 'black' ? LIGHT_DOTS : DARK_DOTS;
+}
+
 export function drawDots(
   ctx: OffscreenCanvasRenderingContext2D,
   width: number,
