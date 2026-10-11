@@ -251,10 +251,16 @@
         "min": 0,
         "max": 1,
         "step": 0.01,
-        "visibleWhen": {
-          "param": "imageMode",
-          "equals": "luminance"
-        },
+        "visibleWhen": [
+          {
+            "param": "source",
+            "equals": 1
+          },
+          {
+            "param": "imageMode",
+            "equals": "luminance"
+          }
+        ],
         "order": 13
       },
       {
@@ -322,26 +328,40 @@
         "id": "useStrength",
         "node": "look",
         "prop": "useStrength",
-        "label": "Use strength 1C→soft",
+        "label": "Use strength 1C\u2192soft",
         "group": "Focus",
         "control": "bool",
         "help": "On: defocus, fade, sharp zone, falloff and dot tone follow the strength. Off: set them by hand.",
-        "order": 17
+        "order": 17,
+        "visibleWhen": {
+          "param": "field",
+          "not": [
+            "none"
+          ]
+        }
       },
       {
         "id": "strength",
         "node": "look",
         "prop": "strength",
-        "label": "Strength 1C→soft",
+        "label": "Strength 1C\u2192soft",
         "group": "Focus",
         "control": "slider",
         "min": 0,
         "max": 1,
         "step": 0.01,
-        "visibleWhen": {
-          "param": "useStrength",
-          "equals": true
-        },
+        "visibleWhen": [
+          {
+            "param": "field",
+            "not": [
+              "none"
+            ]
+          },
+          {
+            "param": "useStrength",
+            "equals": true
+          }
+        ],
         "help": "0 = 1C, 1 = soft; the approved CLOUD OBSERVATORY is 0.1. Sets defocus, fade, sharp zone, falloff and dot tone together.",
         "order": 18
       },
@@ -375,7 +395,7 @@
         "min": -90,
         "max": 90,
         "step": 1,
-        "unit": "°",
+        "unit": "\u00b0",
         "visibleWhen": {
           "param": "field",
           "equals": "tilt"
@@ -649,7 +669,7 @@
         "min": -180,
         "max": 180,
         "step": 1,
-        "unit": "°",
+        "unit": "\u00b0",
         "help": "Where they travel: 0 right, 90 up. The book: 32 (wind from 238)",
         "order": 38
       },
@@ -689,7 +709,7 @@
         "min": 0.1,
         "max": 1.5,
         "step": 0.01,
-        "unit": "×p",
+        "unit": "\u00d7p",
         "order": 41
       },
       {
@@ -930,7 +950,7 @@
         "options": [
           {
             "value": "size",
-            "label": "1 small · 2 medium · 3 large"
+            "label": "1 small \u00b7 2 medium \u00b7 3 large"
           },
           {
             "value": "single",
@@ -977,7 +997,7 @@
     "presets": [
       {
         "id": "co-approved",
-        "label": "CLOUD OBSERVATORY · approved",
+        "label": "CLOUD OBSERVATORY \u00b7 approved",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1030,11 +1050,22 @@
           "dof": 0.183,
           "span": 0.492,
           "tone": 0.715
-        }
+        },
+        "keep": [
+          "colour",
+          "ground",
+          "pen",
+          "minSpacing",
+          "dpi",
+          "pngGround",
+          "svgLayers",
+          "font",
+          "image"
+        ]
       },
       {
         "id": "isolon-approved",
-        "label": "IN SEARCH OF A LONGER NOW · approved (1C)",
+        "label": "IN SEARCH OF A LONGER NOW \u00b7 approved (1C)",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1087,11 +1118,22 @@
           "dof": 0.2206,
           "span": 0.6229,
           "tone": 1.0
-        }
+        },
+        "keep": [
+          "colour",
+          "ground",
+          "pen",
+          "minSpacing",
+          "dpi",
+          "pngGround",
+          "svgLayers",
+          "font",
+          "image"
+        ]
       },
       {
         "id": "co-1c",
-        "label": "CLOUD OBSERVATORY · 1C",
+        "label": "CLOUD OBSERVATORY \u00b7 1C",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1144,11 +1186,22 @@
           "dof": 0.17,
           "span": 0.48,
           "tone": 0.7
-        }
+        },
+        "keep": [
+          "colour",
+          "ground",
+          "pen",
+          "minSpacing",
+          "dpi",
+          "pngGround",
+          "svgLayers",
+          "font",
+          "image"
+        ]
       },
       {
         "id": "co-soft",
-        "label": "CLOUD OBSERVATORY · soft",
+        "label": "CLOUD OBSERVATORY \u00b7 soft",
         "values": {
           "source": 0,
           "seed": 7,
@@ -1201,7 +1254,18 @@
           "dof": 0.3,
           "span": 0.6,
           "tone": 0.85
-        }
+        },
+        "keep": [
+          "colour",
+          "ground",
+          "pen",
+          "minSpacing",
+          "dpi",
+          "pngGround",
+          "svgLayers",
+          "font",
+          "image"
+        ]
       }
     ],
     "assets": [
@@ -1250,9 +1314,10 @@
       "parent": "source",
       "props": {
         "inputIndex": 0,
-        "inputName": "spec",
+        "inputName": "",
         "dataType": "bundle"
-      }
+      },
+      "comment": "spec"
     },
     {
       "id": "type-set",
@@ -1330,9 +1395,10 @@
       "parent": "source",
       "props": {
         "outputIndex": 0,
-        "outputName": "mask",
+        "outputName": "",
         "dataType": "cloudtype.mask"
-      }
+      },
+      "comment": "mask"
     },
     {
       "id": "stipple",
@@ -1417,9 +1483,10 @@
       "parent": "finish",
       "props": {
         "inputIndex": 0,
-        "inputName": "points",
+        "inputName": "",
         "dataType": "geometry"
-      }
+      },
+      "comment": "points"
     },
     {
       "id": "finish-in-spec",
@@ -1432,9 +1499,10 @@
       "parent": "finish",
       "props": {
         "inputIndex": 1,
-        "inputName": "spec",
+        "inputName": "",
         "dataType": "bundle"
-      }
+      },
+      "comment": "spec"
     },
     {
       "id": "finish-in-look",
@@ -1447,9 +1515,10 @@
       "parent": "finish",
       "props": {
         "inputIndex": 2,
-        "inputName": "look",
+        "inputName": "",
         "dataType": "bundle"
-      }
+      },
+      "comment": "look"
     },
     {
       "id": "dot-scale",
@@ -1516,9 +1585,10 @@
       "parent": "finish",
       "props": {
         "outputIndex": 0,
-        "outputName": "points",
+        "outputName": "",
         "dataType": "geometry"
-      }
+      },
+      "comment": "points"
     },
     {
       "id": "page",

@@ -18,6 +18,6 @@ for preset in co-approved co-1c; do
     npx tsx scripts/parity-dots.ts "$preset" "$OUT/graph-$preset-$font.json" "$f" >/dev/null
     npx tsx scripts/compare-dots.ts "$OUT/standalone-$preset-$font.json" "$OUT/graph-$preset-$font.json" | sed 's/^a:/standalone:/; s/^b:/graph:     /'
     # cloud-plots always sets the licensed face (titletype.NOW); the Inter rows compare a different font.
-    "$PY" "$STANDALONE/scripts/parity.py" "$OUT/graph-$preset-$font.json" "$OUT/parity-$preset-$font.jpg" | sed 's/^ts:/graph (py stats):/'
+    "$PY" "$STANDALONE/scripts/parity.py" "$OUT/graph-$preset-$font.json" "$OUT/parity-$preset-$font.png" | sed 's/^ts:/graph (py stats):/'
   done
 done
