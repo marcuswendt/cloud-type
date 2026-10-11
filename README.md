@@ -35,3 +35,14 @@ npx --no-install cascade run cloud-type.cascade --frames 1    # renders/png.0001
 ```
 
 `scripts/parity-dots.ts <preset> <out.json> [font.otf]` runs the graph through Cascade's runtime with a preset from the editor section and writes the page dots in the standalone's `scripts/dots.ts` shape; `scripts/compare-dots.ts a.json b.json` compares two such files. `parity.sh` needs the standalone checkout, the cloud-plots venv and the licensed font where cloud-plots keeps it.
+
+## Share it
+
+The graph's `editor` section is what the shared editor shows. To rebuild and redeploy https://cloud-type.vercel.app (Vercel Authentication on, team field-io):
+
+```sh
+cascade export cloud-type.cascade --plan     # review what ships
+cascade export cloud-type.cascade --out export/site --deploy vercel --project cloud-type --scope field-io
+```
+
+Scenes saved in the editor (`*.scene.json`) open in Studio with File › Open Scene, or headlessly with `cascade run cloud-type.cascade --scene <file> --write png.image=out.png`.
