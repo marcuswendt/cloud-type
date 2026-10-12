@@ -1388,6 +1388,8 @@
         "view": true
       }
     ],
+    "peek": ["text", "seed"],
+    "draft": { "density": 0.5 },
     "presets": [
       {
         "id": "co-approved",
