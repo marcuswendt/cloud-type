@@ -9,7 +9,7 @@ FIELD internal use. See `LICENSE`.
 Needs Node 22.13 or newer.
 
 ```sh
-git clone git@github.com:field/cloud-type.git
+git clone https://github.com/marcuswendt/cloud-type.git
 cd cloud-type
 npm install
 npm test        # type check, graph check, validate, one run
